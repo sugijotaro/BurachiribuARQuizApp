@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="ipad10_5" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,15 +13,53 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="buchou" translatesAutoresizingMaskIntoConstraints="NO" id="lVO-bA-DTQ">
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="474"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="lVO-bA-DTQ" secondAttribute="height" multiplier="139:79" id="jF7-fp-DZF"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="presents" translatesAutoresizingMaskIntoConstraints="NO" id="Eqx-tY-01x">
+                                <rect key="frame" x="224" y="661" width="386" height="190"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="79V-hp-PNk"/>
+                                    <constraint firstAttribute="width" constant="386" id="VZD-yL-2A9"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jotaro Sugiyama" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vnl-I7-8QQ">
+                                <rect key="frame" x="353" y="945.5" width="128" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="aFh-Zb-Cjk"/>
+                                    <constraint firstAttribute="width" constant="128" id="v6y-HV-JQy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lVO-bA-DTQ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="5dC-fT-1HH"/>
+                            <constraint firstItem="Eqx-tY-01x" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="200" id="98P-uH-Nvb"/>
+                            <constraint firstItem="Vnl-I7-8QQ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="F9k-wE-fuj"/>
+                            <constraint firstItem="lVO-bA-DTQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="FBt-sD-Iex"/>
+                            <constraint firstItem="Eqx-tY-01x" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="R42-Lx-5CS"/>
+                            <constraint firstItem="Vnl-I7-8QQ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="400" id="uqw-Gj-kdF"/>
+                            <constraint firstItem="lVO-bA-DTQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uuh-rS-NW5"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.517985611510795" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="buchou" width="1920" height="1080"/>
+        <image name="presents" width="915" height="430"/>
+    </resources>
 </document>
