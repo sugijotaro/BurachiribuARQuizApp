@@ -53,66 +53,13 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
         
         sceneView.delegate = self
         
-        if quizNumber == 1{
-            referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-1", bundle: Bundle.main)
-            self.navigationItem.title = "部長とクイズバトルQ1"
-            newsUI.image = UIImage(named: "news2UI.png")
-            findnews.image = UIImage(named: "findnews2.png")
-            UIPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news2UI", ofType: "mp4")!))
-        }else if quizNumber == 2{
-            referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-2", bundle: Bundle.main)
-            self.navigationItem.title = "部長とクイズバトルQ2"
-            newsUI.image = UIImage(named: "news3UI.png")
-            findnews.image = UIImage(named: "findnews3.png")
-            UIPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news3UI", ofType: "mp4")!))
-        }else if quizNumber == 3{
-            referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-3", bundle: Bundle.main)
-            self.navigationItem.title = "部長とクイズバトルQ3"
-            newsUI.image = UIImage(named: "news4UI.png")
-            findnews.image = UIImage(named: "findnews4.png")
-            UIPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news4UI", ofType: "mp4")!))
-        }else if quizNumber == 4{
-            referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-4", bundle: Bundle.main)
-            self.navigationItem.title = "部長とクイズバトルQ4"
-            newsUI.image = UIImage(named: "news5UI.png")
-            findnews.image = UIImage(named: "findnews5.png")
-            UIPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news5UI", ofType: "mp4")!))
-        }else if quizNumber == 5{
-            referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-5", bundle: Bundle.main)
-            self.navigationItem.title = "部長とクイズバトルQ5"
-            newsUI.image = UIImage(named: "news6UI.png")
-            findnews.image = UIImage(named: "findnews6.png")
-            UIPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news6UI", ofType: "mp4")!))
-        }else if quizNumber == 6{
-            referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-6", bundle: Bundle.main)
-            self.navigationItem.title = "部長とクイズバトルQ6"
-            newsUI.image = UIImage(named: "news7UI.png")
-            findnews.image = UIImage(named: "findnews7.png")
-            UIPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news7UI", ofType: "mp4")!))
-        }else if quizNumber == 7{
-            referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-7", bundle: Bundle.main)
-            self.navigationItem.title = "部長とクイズバトルQ7"
-            newsUI.image = UIImage(named: "news8UI.png")
-            findnews.image = UIImage(named: "findnews8.png")
-            UIPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news8UI", ofType: "mp4")!))
-        }else if quizNumber == 8{
-            referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-8", bundle: Bundle.main)
-            self.navigationItem.title = "部長とクイズバトルQ8"
-            newsUI.image = UIImage(named: "news9UI.png")
-            findnews.image = UIImage(named: "findnews9.png")
-            UIPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news9UI", ofType: "mp4")!))
-        }else if quizNumber == 9{
-            referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-9", bundle: Bundle.main)
-            self.navigationItem.title = "部長とクイズバトルQ9"
-            newsUI.image = UIImage(named: "news10UI.png")
-            findnews.image = UIImage(named: "findnews10.png")
-            UIPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news10UI", ofType: "mp4")!))
-        }else if quizNumber == 10{
-            referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-10", bundle: Bundle.main)
-            self.navigationItem.title = "部長とクイズバトルQ10"
-            newsUI.image = UIImage(named: "news11UI.png")
-            findnews.image = UIImage(named: "findnews11.png")
-            UIPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news11UI", ofType: "mp4")!))
+        if 1 <= quizNumber && quizNumber <= 10{
+            print("quizNumber:\(quizNumber)")
+            referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-\(quizNumber)", bundle: Bundle.main)
+            self.navigationItem.title = "部長とクイズバトルQ\(quizNumber)"
+            newsUI.image = UIImage(named: "news\(quizNumber+1)UI.png")
+            findnews.image = UIImage(named: "findnews\(quizNumber+1).png")
+            UIPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news\(quizNumber+1)UI", ofType: "mp4")!))
         }
         
         choiceButtons1.isHidden = true  //ボタン非表示
@@ -192,26 +139,8 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
     lazy var playerLayer: AVPlayerLayer? = AVPlayerLayer(player: UIPlayer)
     
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        if quizNumber == 1{
-            avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news2", withExtension: "mp4")!)
-        }else if quizNumber == 2{
-            avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news3", withExtension: "mp4")!)
-        }else if quizNumber == 3{
-            avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news4", withExtension: "mp4")!)
-        }else if quizNumber == 4{
-            avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news5", withExtension: "mp4")!)
-        }else if quizNumber == 5{
-            avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news6", withExtension: "mp4")!)
-        }else if quizNumber == 6{
-            avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news7", withExtension: "mp4")!)
-        }else if quizNumber == 7{
-            avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news8", withExtension: "mp4")!)
-        }else if quizNumber == 8{
-            avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news9", withExtension: "mp4")!)
-        }else if quizNumber == 9{
-            avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news10", withExtension: "mp4")!)
-        }else if quizNumber == 10{
-            avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news11", withExtension: "mp4")!)
+        if 1 <= quizNumber && quizNumber <= 10{
+            avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news\(quizNumber+1)", withExtension: "mp4")!)
         }
         let node = SCNNode()
         if let imageAnchor = anchor as? ARImageAnchor , PlayerCondition == 0{
@@ -259,46 +188,10 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
     lazy var playerLayerIncorrect: AVPlayerLayer? = AVPlayerLayer(player: IncorrectPlayer)
     
     @IBAction func choiceAnswer(sender: UIButton) {
-        if quizNumber == 1{
-            CorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news2correct", ofType: "mp4")!))
+        if 1 <= quizNumber && quizNumber <= 10{
+            CorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news\(quizNumber+1)correct", ofType: "mp4")!))
             
-            IncorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news2incorrect", ofType: "mp4")!))
-        }else if quizNumber == 2{
-            CorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news3correct", ofType: "mp4")!))
-            
-            IncorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news3incorrect", ofType: "mp4")!))
-        }else if quizNumber == 3{
-            CorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news4correct", ofType: "mp4")!))
-            
-            IncorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news4incorrect", ofType: "mp4")!))
-        }else if quizNumber == 4{
-            CorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news5correct", ofType: "mp4")!))
-            
-            IncorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news5incorrect", ofType: "mp4")!))
-        }else if quizNumber == 5{
-            CorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news6correct", ofType: "mp4")!))
-            
-            IncorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news6incorrect", ofType: "mp4")!))
-        }else if quizNumber == 6{
-            CorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news7correct", ofType: "mp4")!))
-            
-            IncorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news7incorrect", ofType: "mp4")!))
-        }else if quizNumber == 7{
-            CorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news8correct", ofType: "mp4")!))
-            
-            IncorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news8incorrect", ofType: "mp4")!))
-        }else if quizNumber == 8{
-            CorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news9correct", ofType: "mp4")!))
-            
-            IncorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news9incorrect", ofType: "mp4")!))
-        }else if quizNumber == 9{
-            CorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news10correct", ofType: "mp4")!))
-            
-            IncorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news10incorrect", ofType: "mp4")!))
-        }else if quizNumber == 10{
-            CorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news11correct", ofType: "mp4")!))
-            
-            IncorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news11incorrect", ofType: "mp4")!))
+            IncorrectPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news\(quizNumber+1)incorrect", ofType: "mp4")!))
         }
         if sender.tag == correctNumber[quizNumber] {    //正解
             seigo.isHidden = false  //表示

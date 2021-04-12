@@ -1,6 +1,9 @@
 {
   "images" : [
-
+    {
+      "filename" : "news7.png",
+      "idiom" : "universal"
+    }
   ],
   "info" : {
     "author" : "xcode",

@@ -18,6 +18,8 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
     var slideCount : Int = 1
     private var TutorialNode1: SCNNode?
     
+    var avPlayer: AVPlayer?
+    
     let imageConfiguration: ARImageTrackingConfiguration = {
         let configuration = ARImageTrackingConfiguration()
         
@@ -50,6 +52,8 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         }
         
         self.navigationItem.title = "チュートリアル"
+        
+        avPlayer = AVPlayer(url: Bundle.main.url(forResource: "tutorial", withExtension: "mp4")!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,7 +82,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func menuButton () {
         let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
         let toTutorial = UIAlertAction(title: "ARトラッキング素材をダウンロードする", style: .default) { _ in
-            let url = URL(string: "http://www.setagayagakuen.ac.jp/life/club/geography/")!
+            let url = URL(string: "https://drive.google.com/drive/folders/1MrIoVWPqcHykcmGArWzKvkz3fV2dVHnU?usp=sharing")!
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
             }
@@ -94,7 +98,6 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    var avPlayer: AVPlayer? = AVPlayer(url: Bundle.main.url(forResource: "tutorial", withExtension: "mp4")!)
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
         if let imageAnchor = anchor as? ARImageAnchor {

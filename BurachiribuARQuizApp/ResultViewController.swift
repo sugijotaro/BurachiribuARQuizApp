@@ -50,7 +50,7 @@ class ResultViewController: UIViewController {
     let imageConfiguration: ARImageTrackingConfiguration = {
         let configuration = ARImageTrackingConfiguration()
         
-        let images = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil)
+        let images = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-tutorial", bundle: nil)
         configuration.trackingImages = images!
         configuration.maximumNumberOfTrackedImages = 3
         return configuration
