@@ -1,0 +1,6 @@
+framework module Pods_BurachiribuARQuizApp {
+  umbrella header "Pods-BurachiribuARQuizApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
