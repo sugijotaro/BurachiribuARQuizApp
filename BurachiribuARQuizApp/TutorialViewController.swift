@@ -29,15 +29,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         return configuration
     }()
     
-    let imageConfiguration1: ARImageTrackingConfiguration = {
-        let configuration = ARImageTrackingConfiguration()
-        
-        let images = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-tutorial", bundle: nil)
-        //        configuration.trackingImages = images!
-        configuration.maximumNumberOfTrackedImages = 3
-        return configuration
-    }()
-    
+    let imageConfiguration1 = ARImageTrackingConfiguration()
     let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
     
     override func viewDidLoad() {
@@ -60,7 +52,6 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         super.viewWillAppear(animated)
         
         sceneView.session.run(imageConfiguration1)
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -78,7 +69,6 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         segue()
     }
     
-    
     @IBAction func menuButton () {
         let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
         let toTutorial = UIAlertAction(title: "ARトラッキング素材をダウンロードする", style: .default) { _ in
@@ -87,29 +77,26 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
                 UIApplication.shared.open(url)
             }
         }
-        
-        
         alert.addAction(toTutorial)
+        let toResult = UIAlertAction(title: "結果", style: .default, handler: { _ in
+            self.performSegue(withIdentifier: "toResult", sender: nil)
+        })
+        alert.addAction(toResult)
         
         alert.popoverPresentationController?.sourceView = view
         alert.popoverPresentationController?.barButtonItem = actionButon
-        //        // ここで表示位置を調整
-        //        // xは画面中央、yは画面下部になる様に指定
         self.present(alert, animated: true, completion: nil)
     }
     
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
         if let imageAnchor = anchor as? ARImageAnchor {
-            
             // SKSceneを生成する
             let skScene = SKScene(size: CGSize(width: CGFloat(1000), height: CGFloat(1000)))
-            
             
             NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: avPlayer?.currentItem)
             
             // AVPlayerからSKVideoNodeの生成する（サイズはskSceneと同じ大きさ）
-            
             let skNode = SKVideoNode(avPlayer: avPlayer!)
             skNode.position = CGPoint(x: skScene.size.width / 2.0, y: skScene.size.height / 2.0)
             skNode.size = skScene.size
@@ -123,7 +110,6 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
             node.addChildNode(planeNode)
             
             slideCount = 4
-            
         }
         return node
     }
@@ -210,4 +196,3 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
     }
     
 }
-

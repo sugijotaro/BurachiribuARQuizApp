@@ -49,12 +49,14 @@ class ResultViewController: UIViewController {
     
     let imageConfiguration: ARImageTrackingConfiguration = {
         let configuration = ARImageTrackingConfiguration()
-        
-        let images = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-tutorial", bundle: nil)
-        configuration.trackingImages = images!
-        configuration.maximumNumberOfTrackedImages = 3
+        configuration.maximumNumberOfTrackedImages = 0
         return configuration
     }()
+    
+    var resultPlayer: AVPlayer?
+    var winPlayer: AVPlayer?
+    var losePlayer: AVPlayer?
+    var EDPlayer: AVPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -194,16 +196,16 @@ class ResultViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         let path = Bundle.main.path(forResource: "result", ofType: "mp4")!
-        let player = AVPlayer(url: URL(fileURLWithPath: path))
+        resultPlayer = AVPlayer(url: URL(fileURLWithPath: path))
         
-        let playerLayer = AVPlayerLayer(player: player)
+        let playerLayer = AVPlayerLayer(player: resultPlayer)
         playerLayer.frame = self.movieView.bounds
         playerLayer.videoGravity = .resizeAspectFill
         playerLayer.zPosition = -1
         movieView.layer.insertSublayer(playerLayer, at: 0)
-        player.play()
+        resultPlayer!.play()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+        NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: resultPlayer?.currentItem)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -221,6 +223,8 @@ class ResultViewController: UIViewController {
     
     @objc func didPlayToEndTime() {
         movieView.isHidden = true
+        movieView = nil
+        resultPlayer = nil
         audioPlayerInstanceDrum.play()
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.resultView.isHidden = false
@@ -235,26 +239,26 @@ class ResultViewController: UIViewController {
             self.movieView2.isHidden = false
             if scoreInt >= 5{
                 let pathWin = Bundle.main.path(forResource: "resultWin", ofType: "mp4")!
-                let playerWin = AVPlayer(url: URL(fileURLWithPath: pathWin))
+                winPlayer = AVPlayer(url: URL(fileURLWithPath: pathWin))
                 
-                let playerLayerWin = AVPlayerLayer(player: playerWin)
+                let playerLayerWin = AVPlayerLayer(player: winPlayer)
                 playerLayerWin.frame = self.movieView2.bounds
                 playerLayerWin.videoGravity = .resizeAspectFill
                 playerLayerWin.zPosition = -1
                 movieView2.layer.insertSublayer(playerLayerWin, at: 0)
-                playerWin.play()
-                NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTimeWin), name: .AVPlayerItemDidPlayToEndTime, object: playerWin.currentItem)
+                winPlayer!.play()
+                NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTimeWin), name: .AVPlayerItemDidPlayToEndTime, object: winPlayer?.currentItem)
             } else {
                 let pathLose = Bundle.main.path(forResource: "resultLose", ofType: "mp4")!
-                let playerLose = AVPlayer(url: URL(fileURLWithPath: pathLose))
+                losePlayer = AVPlayer(url: URL(fileURLWithPath: pathLose))
                 
-                let playerLayerLose = AVPlayerLayer(player: playerLose)
+                let playerLayerLose = AVPlayerLayer(player: losePlayer)
                 playerLayerLose.frame = self.movieView2.bounds
                 playerLayerLose.videoGravity = .resizeAspectFill
                 playerLayerLose.zPosition = -1
                 movieView2.layer.insertSublayer(playerLayerLose, at: 0)
-                playerLose.play()
-                NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTimeLose), name: .AVPlayerItemDidPlayToEndTime, object: playerLose.currentItem)
+                losePlayer!.play()
+                NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTimeLose), name: .AVPlayerItemDidPlayToEndTime, object: losePlayer?.currentItem)
             }
         }else {
             resultView.isHidden = true
@@ -273,21 +277,26 @@ class ResultViewController: UIViewController {
     
     func ED () {
         movieView2.isHidden = true
+        movieView2 = nil
+        winPlayer = nil
+        losePlayer = nil
         movieView3.isHidden = false
         let pathED = Bundle.main.path(forResource: "ED", ofType: "mp4")!
-        let playerED = AVPlayer(url: URL(fileURLWithPath: pathED))
+        EDPlayer = AVPlayer(url: URL(fileURLWithPath: pathED))
         
-        let playerLayerED = AVPlayerLayer(player: playerED)
+        let playerLayerED = AVPlayerLayer(player: EDPlayer)
         playerLayerED.frame = self.movieView3.bounds
         playerLayerED.videoGravity = .resizeAspectFill
         playerLayerED.zPosition = -1
         movieView3.layer.insertSublayer(playerLayerED, at: 0)
-        playerED.play()
-        NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTimeED), name: .AVPlayerItemDidPlayToEndTime, object: playerED.currentItem)
+        EDPlayer!.play()
+        NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTimeED), name: .AVPlayerItemDidPlayToEndTime, object: EDPlayer?.currentItem)
     }
     
     @objc func didPlayToEndTimeED() {
         movieView3.isHidden = true
+        movieView3 = nil
+        EDPlayer = nil
         EDimage.isHidden = false
         showresult.isHidden = false
     }
