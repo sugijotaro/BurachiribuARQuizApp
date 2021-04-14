@@ -26,6 +26,8 @@ class ResultViewController: UIViewController {
     @IBOutlet var Q9: UILabel!
     @IBOutlet var Q10: UILabel!
     
+    @IBOutlet var resultTextView: UITextView!
+    
     @IBOutlet var sum: UILabel!
     
     @IBOutlet var name: UILabel!
@@ -58,6 +60,8 @@ class ResultViewController: UIViewController {
     var losePlayer: AVPlayer?
     var EDPlayer: AVPlayer?
     
+    var result: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,80 +83,21 @@ class ResultViewController: UIViewController {
         if userDefaults?.array(forKey: "scoreData") != nil{
             score = userDefaults?.array(forKey: "scoreData") as! [Int]
         } else {
-            score = [1,1,1,1,1,1,1,1,1,1,1]
+            score = [2,1,1,1,1,1,1,1,1,1,1]
+        }
+        if score.count < 12{
+            score = [2,1,1,1,1,1,1,1,1,1,1]
         }
         
-        if score.count > 1 {
-            if self.score[1] == 0{
-                Q1.text = "⭕️"
+        for i in 1...10{
+            if score[i] == 0{
+                result.append("⭕️\n")
                 scoreInt = scoreInt + 1
-            } else {
-                Q1.text = "❌"
-            }
-            
-            if self.score[2] == 0{
-                Q2.text = "⭕️"
-                scoreInt = scoreInt + 1
-            } else {
-                Q2.text = "❌"
-            }
-            
-            if self.score[3] == 0{
-                Q3.text = "⭕️"
-                scoreInt = scoreInt + 1
-            } else {
-                Q3.text = "❌"
-            }
-            
-            if score[4] == 0{
-                Q4.text = "⭕️"
-                scoreInt = scoreInt + 1
-            } else {
-                Q4.text = "❌"
-            }
-            
-            if score[5] == 0{
-                Q5.text = "⭕️"
-                scoreInt = scoreInt + 1
-            } else {
-                Q5.text = "❌"
-            }
-            
-            if score[6] == 0{
-                Q6.text = "⭕️"
-                scoreInt = scoreInt + 1
-            } else {
-                Q6.text = "❌"
-            }
-            
-            if score[7] == 0{
-                Q7.text = "⭕️"
-                scoreInt = scoreInt + 1
-            } else {
-                Q7.text = "❌"
-            }
-            
-            if score[8] == 0{
-                Q8.text = "⭕️"
-                scoreInt = scoreInt + 1
-            } else {
-                Q8.text = "❌"
-            }
-            
-            if score[9] == 0{
-                Q9.text = "⭕️"
-                scoreInt = scoreInt + 1
-            } else {
-                Q9.text = "❌"
-            }
-            
-            if score[10] == 0{
-                Q10.text = "⭕️"
-                scoreInt = scoreInt + 1
-            } else {
-                Q10.text = "❌"
+            }else{
+                result.append("❌\n")
             }
         }
+        resultTextView.text = result.joined()
         
         sum.text = String(scoreInt)
         print(scoreInt)

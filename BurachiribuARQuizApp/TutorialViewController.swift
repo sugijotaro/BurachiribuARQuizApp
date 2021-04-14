@@ -78,10 +78,10 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
             }
         }
         alert.addAction(toTutorial)
-        let toResult = UIAlertAction(title: "結果", style: .default, handler: { _ in
-            self.performSegue(withIdentifier: "toResult", sender: nil)
-        })
-        alert.addAction(toResult)
+//        let toResult = UIAlertAction(title: "結果", style: .default, handler: { _ in
+//            self.performSegue(withIdentifier: "toResult", sender: nil)
+//        })
+//        alert.addAction(toResult)
         
         alert.popoverPresentationController?.sourceView = view
         alert.popoverPresentationController?.barButtonItem = actionButon
