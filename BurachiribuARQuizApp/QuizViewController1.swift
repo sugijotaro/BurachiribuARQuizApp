@@ -26,7 +26,7 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var QuizView :UIView!
     @IBOutlet var SeigoView :UIView!
-    @IBOutlet var BGView: UIView!
+    @IBOutlet var BGView: UIImageView!
     
     @IBOutlet var findnews: UIImageView!
     @IBOutlet var newsUI: UIImageView!
@@ -68,7 +68,7 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
         choiceButtons4.isHidden = true
         seigo.isHidden = true   //非表示
         QuizView.isHidden = true    //非表示
-        BGView.isHidden = true    //非表示
+        BGView.alpha = 0    //非表示
         SeigoView.isHidden = true    //非表示
         newsUI.isHidden = true //非表示
         findnews.isHidden = false  //表示
@@ -173,7 +173,7 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
             QuizView.layer.insertSublayer(playerLayer!, at: 0) // 動画をレイヤーとして追加
             
             findnews.isHidden = true //非表示
-            BGView.isHidden = false    //表示
+            BGView.alpha = 1    //表示
             QuizView.isHidden = false //表示
             QuizView.bringSubviewToFront(BGView)  //重ね順
         }
