@@ -232,7 +232,7 @@ class ResultViewController: UIViewController {
     @objc func menuButtonTapped(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
         let toTutorial = UIAlertAction(title: "チュートリアルに戻る", style: .default) { _ in
-            
+            self.navigationController?.popToRootViewController(animated: true)
         }
         alert.addAction(toTutorial)
 
