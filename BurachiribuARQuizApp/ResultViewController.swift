@@ -245,6 +245,11 @@ class ResultViewController: UIViewController {
             self.navigationController?.popToRootViewController(animated: true)
         }
         alert.addAction(toTutorial)
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel) { (action: UIAlertAction) in
+            })
+        }
 
         alert.popoverPresentationController?.sourceView = view
         alert.popoverPresentationController?.barButtonItem = menuBarButtonItem
