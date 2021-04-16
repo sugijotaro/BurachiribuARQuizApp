@@ -273,34 +273,14 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
     }
     
     @objc func didPlayToEndTimeCorrect() {
-        seigo.image = nil
-        findnews.image = nil
-        newsUI.image = nil
-        avPlayer = nil
-        sceneView.removeFromSuperview()
-        sceneView = nil
-        UIPlayer = nil
-        playerLayer?.removeFromSuperlayer()
-        playerLayer = nil
-        CorrectPlayer = nil
-        playerLayerCorrect?.removeFromSuperlayer()
-        playerLayerCorrect = nil
-        IncorrectPlayer = nil
-        playerLayerIncorrect?.removeFromSuperlayer()
-        playerLayerIncorrect = nil
-        print("nilにした")
-        if quizNumber < 10{
-            let storyboard: UIStoryboard = self.storyboard!
-            let nextView = storyboard.instantiateViewController(withIdentifier: "Q1") as! QuizViewController1
-            nextView.modalPresentationStyle = .fullScreen //or .overFullScreen for transparency
-            nextView.quizNumber = self.quizNumber + 1
-            navigationController?.pushViewController(nextView, animated: true)
-        }else{
-            self.performSegue(withIdentifier: "toResult", sender: nil)
-        }
+        resultMovieFinished()
     }
     
     @objc func didPlayToEndTimeIncorrect() {
+        resultMovieFinished()
+    }
+    
+    func resultMovieFinished(){
         seigo.image = nil
         findnews.image = nil
         newsUI.image = nil
@@ -324,7 +304,7 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
             nextView.quizNumber = self.quizNumber + 1
             navigationController?.pushViewController(nextView, animated: true)
         }else{
-            self.performSegue(withIdentifier: "toResult", sender: nil)
+            self.performSegue(withIdentifier: "toResult_iPad", sender: nil)
         }
     }
     
