@@ -266,7 +266,6 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="Cv3-GB-j66"/>
                     <connections>
                         <outlet property="EDimage" destination="mbL-aV-P6X" id="bdd-ru-mjU"/>
                         <outlet property="movieView" destination="GAK-mo-Xlo" id="Ss6-xi-x06"/>
