@@ -12,6 +12,7 @@
 		0A799D202626E7A500B78C6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A799D1F2626E7A500B78C6F /* GoogleService-Info.plist */; };
 		0A799D212626E7A500B78C6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A799D1F2626E7A500B78C6F /* GoogleService-Info.plist */; };
 		0A799D222626E7A500B78C6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A799D1F2626E7A500B78C6F /* GoogleService-Info.plist */; };
+		0AA3BDA426297CBC00426A58 /* Result_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AA3BDA326297CBC00426A58 /* Result_iPad.storyboard */; };
 		0AAA3E6722C74DF90044326B /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAA3E6622C74DF90044326B /* ResultViewController.swift */; };
 		0ADA9B792541E78B0085F6CC /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0ADA9B762541E78A0085F6CC /* correct.mp3 */; };
 		0ADA9B7A2541E78B0085F6CC /* incorrect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0ADA9B772541E78B0085F6CC /* incorrect.mp3 */; };
@@ -113,6 +114,7 @@
 		0A17037522D9A8A0003EEE69 /* QuizViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController1.swift; sourceTree = "<group>"; };
 		0A3B1A1A22B4C77800704A10 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		0A799D1F2626E7A500B78C6F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0AA3BDA326297CBC00426A58 /* Result_iPad.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Result_iPad.storyboard; sourceTree = "<group>"; };
 		0AAA3E6622C74DF90044326B /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		0ADA9B762541E78A0085F6CC /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
 		0ADA9B772541E78B0085F6CC /* incorrect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = incorrect.mp3; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 				0A17037522D9A8A0003EEE69 /* QuizViewController1.swift */,
 				0AAA3E6622C74DF90044326B /* ResultViewController.swift */,
 				0AE6A35F22AFA42600011DCB /* Main.storyboard */,
+				0AA3BDA326297CBC00426A58 /* Result_iPad.storyboard */,
 				0ADBC2D722C74654007437B5 /* CustomClass.swift */,
 				0AE6A36222AFA42700011DCB /* Assets.xcassets */,
 				0ADA9B742541E7760085F6CC /* Assets */,
@@ -482,8 +485,8 @@
 				0AE6A35222AFA42600011DCB /* Sources */,
 				0AE6A35322AFA42600011DCB /* Frameworks */,
 				0AE6A35422AFA42600011DCB /* Resources */,
-				0A2C31772626E89C00F3E329 /* ShellScript */,
 				C44306D603FF2EED90D38120 /* [CP] Embed Pods Frameworks */,
+				0A2C31772626E89C00F3E329 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -638,6 +641,7 @@
 				0ADA9BEC2541EAB50085F6CC /* findnews5.png in Resources */,
 				0ADA9BDD2541EAAC0085F6CC /* news4UI.png in Resources */,
 				0ADA9BF82541EAC20085F6CC /* news11correct.mp4 in Resources */,
+				0AA3BDA426297CBC00426A58 /* Result_iPad.storyboard in Resources */,
 				0ADA9BCF2541EAA30085F6CC /* findnews3.png in Resources */,
 				0ADA9BB62541E9A20085F6CC /* news2UI.png in Resources */,
 				0ADA9C372541EAE70085F6CC /* news7.mp4 in Resources */,
@@ -988,7 +992,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BurachiribuARQuizApp/BurachiribuARQuizApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3V8797S66Q;
 				INFOPLIST_FILE = BurachiribuARQuizApp/Info.plist;
@@ -996,6 +1000,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = sugijo.BurachiribuQuiz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1011,13 +1016,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = BurachiribuARQuizApp/BurachiribuARQuizApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3V8797S66Q;
 				INFOPLIST_FILE = BurachiribuARQuizApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = sugijo.BurachiribuQuiz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
