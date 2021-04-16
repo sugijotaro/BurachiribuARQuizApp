@@ -8,12 +8,9 @@ class ResultViewController: UIViewController {
 
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var resultView: UIView!
-    @IBOutlet var shareButton: UIButton!
     @IBOutlet var touchButton: UIButton!
     
     @IBOutlet var movieView: UIView!
-//    @IBOutlet var movieView2: UIView!
-//    @IBOutlet var movieView3: UIView!
     
     @IBOutlet var resultTextView: UITextView!
     
@@ -45,11 +42,10 @@ class ResultViewController: UIViewController {
     }()
     
     var moviePlayer: AVPlayer?
-//    var winPlayer: AVPlayer?
-//    var losePlayer: AVPlayer?
-//    var EDPlayer: AVPlayer?
     
     var result: [String] = []
+    
+    var menuBarButtonItem: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -223,12 +219,26 @@ class ResultViewController: UIViewController {
         moviePlayer = nil
         EDimage.isHidden = false
         showresult.isHidden = false
+        menuBarButtonItem = UIBarButtonItem(image: UIImage(named: "Image"), style: .plain, target: self, action: #selector(menuButtonTapped(_:)))
+        self.navigationItem.setLeftBarButtonItems([menuBarButtonItem], animated: true)
     }
     
     @IBAction func showResultED() {
         resultView.isHidden = false
         touchButton.isHidden = false
         I = 1
+    }
+    
+    @objc func menuButtonTapped(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
+        let toTutorial = UIAlertAction(title: "チュートリアルに戻る", style: .default) { _ in
+            
+        }
+        alert.addAction(toTutorial)
+
+        alert.popoverPresentationController?.sourceView = view
+        alert.popoverPresentationController?.barButtonItem = menuBarButtonItem
+        self.present(alert, animated: true, completion: nil)
     }
 
 }
