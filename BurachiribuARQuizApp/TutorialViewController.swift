@@ -78,10 +78,16 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
             }
         }
         alert.addAction(toTutorial)
+        
 //        let toResult = UIAlertAction(title: "結果", style: .default, handler: { _ in
 //            self.performSegue(withIdentifier: "toResult", sender: nil)
 //        })
 //        alert.addAction(toResult)
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel) { (action: UIAlertAction) in
+            })
+        }
         
         alert.popoverPresentationController?.sourceView = view
         alert.popoverPresentationController?.barButtonItem = actionButon
