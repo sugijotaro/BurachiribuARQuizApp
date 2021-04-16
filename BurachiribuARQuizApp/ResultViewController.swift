@@ -12,7 +12,7 @@ class ResultViewController: UIViewController {
     
     @IBOutlet var movieView: UIView!
     
-    @IBOutlet var resultTextView: UITextView!
+    @IBOutlet var resultLabel: UILabel!
     
     @IBOutlet var sum: UILabel!
     
@@ -21,8 +21,6 @@ class ResultViewController: UIViewController {
     @IBOutlet var EDimage: UIImageView!
     
     @IBOutlet var showresult: UIButton!
-    
-    @IBOutlet var quizName: UITextView!
     
     var score: [Int] = [1]   //0=正解 1=不正解
     var userDefaults = UserDefaults(suiteName: "group.com.burachiribu")
@@ -55,8 +53,6 @@ class ResultViewController: UIViewController {
         EDimage.isHidden = true
         showresult.isHidden = true
         
-        quizName.font = UIFont.boldSystemFont(ofSize: 26)
-        
         
         
         self.navigationItem.hidesBackButton = true
@@ -75,15 +71,29 @@ class ResultViewController: UIViewController {
         
         for i in 1...10{
             if score[i] == 0{
-                result.append("⭕️\n")
+                result.append("⭕️")
                 scoreInt = scoreInt + 1
             }else{
-                result.append("❌\n")
+                result.append("❌")
             }
         }
-        resultTextView.text = result.joined()
+        resultLabel.text = result.joined(separator: "\n")
         
-        sum.text = String(scoreInt)
+        let stringAttributes1: [NSAttributedString.Key : Any] = [
+            .foregroundColor : UIColor.red
+        ]
+        let string1 = NSAttributedString(string: String(scoreInt), attributes: stringAttributes1)
+        
+        let stringAttributes2: [NSAttributedString.Key : Any] = [
+            .foregroundColor : UIColor.black
+        ]
+        let string2 = NSAttributedString(string: "／10", attributes: stringAttributes2)
+        
+        let mutableAttributedString = NSMutableAttributedString()
+        mutableAttributedString.append(string1)
+        mutableAttributedString.append(string2)
+        
+        sum.attributedText = mutableAttributedString
         print(scoreInt)
         
         if scoreInt > 9{
