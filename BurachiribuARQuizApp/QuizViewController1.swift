@@ -304,7 +304,7 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
             nextView.quizNumber = self.quizNumber + 1
             navigationController?.pushViewController(nextView, animated: true)
         }else{
-            self.performSegue(withIdentifier: "toResult_iPad", sender: nil)
+            self.performSegue(withIdentifier: "toResult", sender: nil)
         }
     }
     
