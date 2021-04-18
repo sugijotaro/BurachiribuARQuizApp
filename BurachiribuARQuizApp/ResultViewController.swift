@@ -156,6 +156,7 @@ class ResultViewController: UIViewController {
         sceneView.session.pause()
     }
     
+    override var prefersHomeIndicatorAutoHidden: Bool { true }
     
     @objc func didPlayToEndTime() {
         movieView.isHidden = true

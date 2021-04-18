@@ -60,6 +60,8 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         sceneView?.session.pause()
     }
     
+    override var prefersHomeIndicatorAutoHidden: Bool { true }
+    
     @objc func didPlayToEndTime() {
         // 再生が終了したら呼ばれる
         print("動画再生終了")

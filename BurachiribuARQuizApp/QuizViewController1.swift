@@ -135,6 +135,7 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
         sceneView?.session.pause()
     }
     
+    override var prefersHomeIndicatorAutoHidden: Bool { true }
     
     lazy var playerLayer: AVPlayerLayer? = AVPlayerLayer(player: UIPlayer)
     
