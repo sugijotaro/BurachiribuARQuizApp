@@ -59,15 +59,15 @@ class ResultViewController: UIViewController {
         self.navigationItem.title = "結果発表"
         
         
-        if userDefaults?.array(forKey: "scoreData") != nil{
+//        if userDefaults?.array(forKey: "scoreData") != nil{
             score = userDefaults?.array(forKey: "scoreData") as! [Int]
-        } else {
-            score = [2,1,1,1,1,1,1,1,1,1,1]
-        }
-        if score.count < 12{
-            score = [2,1,1,1,1,1,1,1,1,1,1]
-//            score = [2,0,0,0,0,0,0,0,0,0,0]
-        }
+//        } else {
+//            score = [2,1,1,1,1,1,1,1,1,1,1]
+//        }
+//        if score.count < 12{
+//            score = [2,1,1,1,1,1,1,1,1,1,1]
+////            score = [2,0,0,0,0,0,0,0,0,0,0]
+//        }
         
         for i in 1...10{
             if score[i] == 0{

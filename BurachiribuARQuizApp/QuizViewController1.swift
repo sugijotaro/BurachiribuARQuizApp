@@ -107,10 +107,6 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
         if quizNumber == 1{
             score = [2]
             userDefaults!.set(score, forKey: "scoreData")
-        } else {
-            if userDefaults?.array(forKey: "scoreData") != nil{
-                score = userDefaults?.array(forKey: "scoreData") as! [Int]
-            }
         }
     }
     
@@ -208,7 +204,6 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
             
             score = userDefaults?.array(forKey: "scoreData") as! [Int]
             score += [0]
-            userDefaults!.set(score, forKey: "scoreData")
             print(score)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -239,7 +234,6 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
             
             score = userDefaults?.array(forKey: "scoreData") as! [Int]
             score += [1]
-            userDefaults!.set(score, forKey: "scoreData")
             print(score)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -298,6 +292,7 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
         playerLayerIncorrect?.removeFromSuperlayer()
         playerLayerIncorrect = nil
         print("nilにした")
+        userDefaults!.set(score, forKey: "scoreData")
         if quizNumber < 10{
             let storyboard: UIStoryboard = self.storyboard!
             let nextView = storyboard.instantiateViewController(withIdentifier: "Q1") as! QuizViewController1
