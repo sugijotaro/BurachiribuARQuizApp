@@ -13,21 +13,12 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var actionButon: UIBarButtonItem!
     
-    var menu: Int = 0
-    
     var slideCount : Int = 1
     private var TutorialNode1: SCNNode?
     
     var avPlayer: AVPlayer?
     
-    let imageConfiguration: ARImageTrackingConfiguration = {
-        let configuration = ARImageTrackingConfiguration()
-        
-        let images = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-tutorial", bundle: nil)
-        configuration.trackingImages = images!
-        configuration.maximumNumberOfTrackedImages = 3
-        return configuration
-    }()
+    let imageConfiguration = ARImageTrackingConfiguration()
     
     let imageConfiguration1 = ARImageTrackingConfiguration()
     let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
@@ -46,6 +37,9 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         self.navigationItem.title = "チュートリアル"
         
         avPlayer = AVPlayer(url: Bundle.main.url(forResource: "tutorial", withExtension: "mp4")!)
+        
+        imageConfiguration.trackingImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-tutorial", bundle: nil)!
+        imageConfiguration.maximumNumberOfTrackedImages = 3
     }
     
     override func viewWillAppear(_ animated: Bool) {
