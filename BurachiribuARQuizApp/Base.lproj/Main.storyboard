@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sN6-ht-VRx">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -12,17 +14,17 @@
             <objects>
                 <viewController storyboardIdentifier="TutorialView" id="Tb2-pW-cJg" customClass="TutorialViewController" customModule="BurachiribuARQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gxf-hu-sAn">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gCo-QA-pCh">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </arscnView>
                             <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7CC-6G-yuq" userLabel="SlideView">
-                                <rect key="frame" x="30" y="-32.000000000000028" width="540" height="708"/>
+                                <rect key="frame" x="20.5" y="230.5" width="373" height="489"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pzj-Da-DNx">
-                                        <rect key="frame" x="0.0" y="0.0" width="540" height="708"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="373" height="489"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -35,7 +37,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wbi-Jd-sog">
-                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <connections>
                                     <action selector="touch" destination="Tb2-pW-cJg" eventType="touchUpInside" id="wKO-3w-X7e"/>
                                 </connections>
@@ -97,63 +99,79 @@
             <objects>
                 <viewController storyboardIdentifier="QuizView" id="AD7-zb-4XL" customClass="QuizViewController" customModule="BurachiribuARQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gur-Kc-pwV">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vvv-lZ-tYF">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </arscnView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kbn-1G-uOC">
-                                <rect key="frame" x="180" y="180" width="240" height="240"/>
+                                <rect key="frame" x="124" y="365" width="166" height="166"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Kbn-1G-uOC" secondAttribute="height" multiplier="1:1" id="6Un-pW-fAi"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Geg-vO-1bW">
-                                <rect key="frame" x="15" y="236" width="570" height="128"/>
+                                <rect key="frame" x="10.5" y="403.5" width="393" height="89"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Geg-vO-1bW" secondAttribute="height" multiplier="182:41" id="A1V-hL-wvC"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pdy-I7-xpb" userLabel="SeigoView">
-                                <rect key="frame" x="186.5" y="84" width="227" height="320"/>
+                                <rect key="frame" x="10.5" y="159.5" width="393" height="554.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Pdy-I7-xpb" secondAttribute="height" multiplier="56:79" id="uoY-jh-nOR"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_UI" translatesAutoresizingMaskIntoConstraints="NO" id="kRU-bG-1hz">
-                                <rect key="frame" x="0.0" y="444" width="600" height="240"/>
+                                <rect key="frame" x="0.0" y="754" width="414" height="166"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="kRU-bG-1hz" secondAttribute="height" multiplier="5:2" id="1kV-4B-Kk3"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uBb-FQ-PmP">
-                                <rect key="frame" x="0.0" y="444" width="600" height="156"/>
+                                <rect key="frame" x="0.0" y="754" width="414" height="108"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="news10UI.png" translatesAutoresizingMaskIntoConstraints="NO" id="8eX-Qd-r8y">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="156"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                                     </imageView>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UBB-6a-fIv">
-                                        <rect key="frame" x="48" y="67.5" width="240" height="39.5"/>
+                                        <rect key="frame" x="33" y="47" width="165.5" height="27"/>
+                                        <color key="backgroundColor" red="0.88627450980392153" green="0.88235294117647056" blue="0.90980392156862744" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="choiceAnswerWithSender:" destination="AD7-zb-4XL" eventType="touchUpInside" id="kY4-sP-5fv"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OET-IT-wpl">
-                                        <rect key="frame" x="312" y="67.5" width="240" height="39.5"/>
+                                        <rect key="frame" x="215.5" y="47" width="165.5" height="27"/>
+                                        <color key="backgroundColor" red="0.88627450980392153" green="0.88235294117647056" blue="0.90980392156862744" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="choiceAnswerWithSender:" destination="AD7-zb-4XL" eventType="touchUpInside" id="A3Z-GO-pzf"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Scr-tU-Sva">
-                                        <rect key="frame" x="48" y="111.5" width="240" height="39"/>
+                                        <rect key="frame" x="33" y="77.5" width="165.5" height="26.5"/>
+                                        <color key="backgroundColor" red="0.88627450980392153" green="0.88235294117647056" blue="0.90980392156862744" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="choiceAnswerWithSender:" destination="AD7-zb-4XL" eventType="touchUpInside" id="mvG-cZ-tFQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBL-YX-jdw">
-                                        <rect key="frame" x="312" y="111.5" width="240" height="39"/>
+                                        <rect key="frame" x="215.5" y="77.5" width="165.5" height="26.5"/>
+                                        <color key="backgroundColor" red="0.88627450980392153" green="0.88235294117647056" blue="0.90980392156862744" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="choiceAnswerWithSender:" destination="AD7-zb-4XL" eventType="touchUpInside" id="oh0-Yc-nNO"/>
                                         </connections>
@@ -237,7 +255,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sN6-ht-VRx" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ed2-3C-RWr">
-                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -254,54 +272,54 @@
             <objects>
                 <viewController storyboardIdentifier="ResultView" id="TzH-NH-HeZ" customClass="ResultViewController" customModule="BurachiribuARQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2dg-KG-nN4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqm-5U-E1q">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </arscnView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d1S-GC-sTg">
-                                <rect key="frame" x="12" y="138" width="576" height="324"/>
+                                <rect key="frame" x="12" y="338.5" width="390" height="219"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="d1S-GC-sTg" secondAttribute="height" multiplier="395:222" id="0F8-l6-wAr"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ED" translatesAutoresizingMaskIntoConstraints="NO" id="0tP-di-vpO">
-                                <rect key="frame" x="-458" y="-777" width="1516" height="2154"/>
+                                <rect key="frame" x="10.5" y="168.5" width="393" height="559"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="0tP-di-vpO" secondAttribute="height" multiplier="558:793" id="XHr-Wd-KEa"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaQ-oD-uvD">
-                                <rect key="frame" x="-116.99999999999999" y="1233.5" width="834" height="111.5"/>
+                                <rect key="frame" x="99" y="679.5" width="216" height="29"/>
                                 <connections>
                                     <action selector="showResultED" destination="TzH-NH-HeZ" eventType="touchUpInside" id="tVj-ub-BMq"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j20-XL-HvS" customClass="CustomView" customModule="BurachiribuARQuizApp" customModuleProvider="target">
-                                <rect key="frame" x="-791.5" y="-1260" width="2183" height="3120"/>
+                                <rect key="frame" x="10.5" y="153" width="393" height="590"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="結果発表" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="c11-2V-sAo">
-                                        <rect key="frame" x="709.5" y="42.5" width="764" height="312"/>
+                                        <rect key="frame" x="127.5" y="4.5" width="138" height="59"/>
                                         <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="100"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgZ-4F-voj" customClass="CustomView" customModule="BurachiribuARQuizApp" customModuleProvider="target">
-                                        <rect key="frame" x="92.5" y="354.5" width="1998" height="2138.5"/>
+                                        <rect key="frame" x="16.5" y="63.5" width="360" height="404"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="スコア" lineBreakMode="tailTruncation" baselineAdjustment="none" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="d30-WV-ivd">
-                                                <rect key="frame" x="92" y="64" width="352.5" height="100"/>
+                                                <rect key="frame" x="10" y="12" width="63.5" height="100"/>
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="100"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ax-n2-0jQ" customClass="CustomView" customModule="BurachiribuARQuizApp" customModuleProvider="target">
-                                                <rect key="frame" x="80" y="727.5" width="1838" height="1326"/>
+                                                <rect key="frame" x="14.5" y="137.5" width="331" height="251"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="CI3-Ve-FyF">
-                                                        <rect key="frame" x="12" y="66" width="1114.5" height="1193.5"/>
+                                                        <rect key="frame" x="12" y="12.5" width="1114.5" height="226"/>
                                                         <string key="text">ブラチリブNEWS第2号
 ブラチリブNEWS第3号
 ブラチリブNEWS第4号
@@ -317,7 +335,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="Lrb-6N-Wvs">
-                                                        <rect key="frame" x="1706.5" y="66" width="40" height="1193.5"/>
+                                                        <rect key="frame" x="275" y="12.5" width="40" height="226"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="40" id="rGa-bD-Ved"/>
                                                         </constraints>
@@ -352,7 +370,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0／10" textAlignment="center" lineBreakMode="tailTruncation" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="N98-K0-6Xs">
-                                                <rect key="frame" x="549.5" y="182" width="899" height="448.5"/>
+                                                <rect key="frame" x="99" y="34.5" width="162" height="84.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="150"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -379,16 +397,16 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dH-Me-Cmg" customClass="CustomView" customModule="BurachiribuARQuizApp" customModuleProvider="target">
-                                        <rect key="frame" x="91.5" y="2614" width="2000" height="467.5"/>
+                                        <rect key="frame" x="16.5" y="486.5" width="360" height="88.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="称号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="none" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="uvc-K2-g9P">
-                                                <rect key="frame" x="92" y="62" width="200" height="100"/>
+                                                <rect key="frame" x="10" y="5.5" width="36" height="100"/>
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="100"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="えいえんのブラチリブ部員" textAlignment="center" lineBreakMode="tailTruncation" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="4xl-Sg-qSh">
-                                                <rect key="frame" x="150" y="116.5" width="1700" height="328"/>
+                                                <rect key="frame" x="27" y="22.5" width="306" height="62"/>
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="100"/>
                                                 <color key="textColor" red="1" green="0.12427838450000001" blue="0.081473877410000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -451,7 +469,7 @@
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbb-zb-Q6G">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <connections>
                                     <action selector="touched" destination="TzH-NH-HeZ" eventType="touchUpInside" id="3Dc-al-Oc6"/>
                                 </connections>
@@ -489,12 +507,12 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="A1c-1O-faq"/>
-                                <exclude reference="QgC-EB-aRY"/>
-                                <exclude reference="jkE-Xo-UA3"/>
                                 <exclude reference="HO3-wV-roU"/>
                                 <exclude reference="P8R-ze-gto"/>
                                 <exclude reference="tKQ-Hz-XkK"/>
+                                <exclude reference="A1c-1O-faq"/>
+                                <exclude reference="QgC-EB-aRY"/>
+                                <exclude reference="jkE-Xo-UA3"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -502,16 +520,16 @@
                                 <include reference="j20-XL-HvS"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="jkE-Xo-UA3"/>
                                 <include reference="tKQ-Hz-XkK"/>
+                                <include reference="jkE-Xo-UA3"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
-                                <include reference="A1c-1O-faq"/>
-                                <exclude reference="QgC-EB-aRY"/>
                                 <exclude reference="HO3-wV-roU"/>
                                 <include reference="P8R-ze-gto"/>
+                                <include reference="A1c-1O-faq"/>
+                                <exclude reference="QgC-EB-aRY"/>
                             </mask>
                         </variation>
                     </view>
