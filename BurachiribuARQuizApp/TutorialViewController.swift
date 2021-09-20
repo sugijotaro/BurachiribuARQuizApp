@@ -23,6 +23,8 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
     let imageConfiguration1 = ARImageTrackingConfiguration()
     let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
     
+    var userDefaults = UserDefaults(suiteName: "group.com.burachiribu")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,6 +81,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         alert.addAction(toTutorial)
         
 //        let toResult = UIAlertAction(title: "結果", style: .default, handler: { _ in
+//            self.userDefaults!.set([2,1,1,1,1,1,1,1,1,1,1], forKey: "scoreData")
 //            self.performSegue(withIdentifier: "toResult", sender: nil)
 //        })
 //        alert.addAction(toResult)
