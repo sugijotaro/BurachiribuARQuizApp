@@ -18,9 +18,9 @@ class ResultViewController: UIViewController {
     
     @IBOutlet var name: UILabel!
     
-    @IBOutlet var EDimage: UIImageView!
+    @IBOutlet var endingImage: UIImageView!
     
-    @IBOutlet var showresult: UIButton!
+    @IBOutlet var showResultButton: UIButton!
     
     var score: [Int] = [1]   //0=正解 1=不正解
     var userDefaults = UserDefaults(suiteName: "group.com.burachiribu")
@@ -50,8 +50,8 @@ class ResultViewController: UIViewController {
         
         resultView.isHidden = true
         touchButton.isHidden = true
-        EDimage.isHidden = true
-        showresult.isHidden = true
+        endingImage.isHidden = true
+        showResultButton.isHidden = true
         
         
         
@@ -228,8 +228,8 @@ class ResultViewController: UIViewController {
     @objc func didPlayToEndTimeED() {
         movieView.isHidden = true
         moviePlayer = nil
-        EDimage.isHidden = false
-        showresult.isHidden = false
+        endingImage.isHidden = false
+        showResultButton.isHidden = false
         menuBarButtonItem = UIBarButtonItem(image: UIImage(named: "Image"), style: .plain, target: self, action: #selector(menuButtonTapped(_:)))
         self.navigationItem.setLeftBarButtonItems([menuBarButtonItem], animated: true)
     }

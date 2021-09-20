@@ -1,5 +1,4 @@
 
-
 import UIKit
 import SceneKit
 import ARKit
@@ -8,20 +7,20 @@ import AVFoundation
 class TutorialViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
-    @IBOutlet var slide :UIImageView!
-    @IBOutlet var SlideView :UIView!
+    @IBOutlet var slideImageView: UIImageView!
+    @IBOutlet var slideViewView: UIView!
     
     @IBOutlet var actionButon: UIBarButtonItem!
     
-    var slideCount : Int = 1
-    private var TutorialNode1: SCNNode?
+    private var slideCount: Int = 1
+    private var tutorialNode1: SCNNode?
     
     var avPlayer: AVPlayer?
     
     let imageConfiguration = ARImageTrackingConfiguration()
     
     let imageConfiguration1 = ARImageTrackingConfiguration()
-    let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+    let cameraPermissionStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
     
     var userDefaults = UserDefaults(suiteName: "group.com.burachiribu")
     
@@ -30,10 +29,10 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         
         sceneView.delegate = self
         
-        slide.isHidden = false
-        SlideView.isHidden = false
+        slideImageView.isHidden = false
+        slideViewView.isHidden = false
         autoreleasepool {
-            slide.image = UIImage(named: "slide1")
+            slideImageView.image = UIImage(named: "slide1")
         }
         
         self.navigationItem.title = "チュートリアル"
@@ -124,19 +123,19 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         return node
     }
     
-    @IBAction func leftswipe (){
+    @IBAction func leftswipe(){
         if slideCount == 2{
             slideCount = 1
             showImageView()
         }else if slideCount == 3{
             slideCount = 2
             showImageView()
-            TutorialNode1?.isHidden = true
+            tutorialNode1?.isHidden = true
             sceneView.session.run(imageConfiguration1)
         }
     }
     
-    @IBAction func rightswipe (){
+    @IBAction func rightswipe(){
         if slideCount == 1{
             slideCount = 2
             showImageView()
@@ -144,11 +143,11 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
             slideCount = 3
             showImageView()
             sceneView.session.run(imageConfiguration)
-            TutorialNode1?.isHidden = false
+            tutorialNode1?.isHidden = false
         }
     }
     
-    @IBAction func touch (){
+    @IBAction func touch(){
         if slideCount == 1{
             slideCount = 2
             showImageView()
@@ -156,29 +155,31 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
             slideCount = 3
             showImageView()
             sceneView.session.run(imageConfiguration)
-            TutorialNode1?.isHidden = false
+            tutorialNode1?.isHidden = false
         }
     }
     
     func showImageView(){
-        if slideCount == 1 {
-            slide.isHidden = false
-            SlideView.isHidden = false
+        switch slideCount {
+        case 1:
+            slideImageView.isHidden = false
+            slideViewView.isHidden = false
             autoreleasepool {
-                slide.image = UIImage(named: "slide1")
+                slideImageView.image = UIImage(named: "slide1")
             }
-        }else if slideCount == 2 {
-            slide.isHidden = false
-            SlideView.isHidden = false
+        case 2:
+            slideImageView.isHidden = false
+            slideViewView.isHidden = false
             autoreleasepool {
-                slide.image = UIImage(named: "slide2")
+                slideImageView.image = UIImage(named: "slide2")
             }
-        }else if slideCount == 3 {
-            slide.isHidden = true
-            SlideView.isHidden = true
+        case 3:
+            slideImageView.isHidden = true
+            slideViewView.isHidden = true
+        default: break
         }
         
-        if status == AVAuthorizationStatus.denied {
+        if cameraPermissionStatus == AVAuthorizationStatus.denied {
             let title: String = "カメラの使用が許可されていません。"
             let message: String = "カメラへのアクセスを許可してください。"
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -198,7 +199,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func segue(){
-        slide.image = nil
+        slideImageView.image = nil
         avPlayer = nil
         sceneView.removeFromSuperview()
         sceneView = nil
