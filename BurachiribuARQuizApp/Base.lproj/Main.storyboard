@@ -76,7 +76,7 @@
                         <outlet property="actionButon" destination="Cic-uz-l5F" id="10J-UW-jwt"/>
                         <outlet property="sceneView" destination="gCo-QA-pCh" id="Faa-Oi-650"/>
                         <outlet property="slide" destination="pzj-Da-DNx" id="k4t-Ub-dGQ"/>
-                        <segue destination="AD7-zb-4XL" kind="show" identifier="toQ1" id="Aal-wm-lVk"/>
+                        <segue destination="AD7-zb-4XL" kind="show" identifier="toQuizView" id="Aal-wm-lVk"/>
                         <segue destination="TzH-NH-HeZ" kind="show" identifier="toResult" id="I3w-1n-HHE"/>
                     </connections>
                 </viewController>
@@ -94,10 +94,10 @@
             </objects>
             <point key="canvasLocation" x="-453.23741007194246" y="25.899280575539571"/>
         </scene>
-        <!--Quiz View Controller1-->
+        <!--Quiz View Controller-->
         <scene sceneID="nJn-ca-Akc">
             <objects>
-                <viewController storyboardIdentifier="Q1" id="AD7-zb-4XL" customClass="QuizViewController1" customModule="BurachiribuARQuizApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QuizView" id="AD7-zb-4XL" customClass="QuizViewController" customModule="BurachiribuARQuizApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gur-Kc-pwV">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
