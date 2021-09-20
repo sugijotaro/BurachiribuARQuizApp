@@ -63,6 +63,21 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
             uiVideoPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news\(quizNumber+1)UI", ofType: "mp4")!))
         }
         
+        choiceButtons1.clipsToBounds = true
+        choiceButtons2.clipsToBounds = true
+        choiceButtons3.clipsToBounds = true
+        choiceButtons4.clipsToBounds = true
+        
+        choiceButtons1.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 1, green: 1, blue: 1, alpha: 0)), for: .normal)
+        choiceButtons2.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 1, green: 1, blue: 1, alpha: 0)), for: .normal)
+        choiceButtons3.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 1, green: 1, blue: 1, alpha: 0)), for: .normal)
+        choiceButtons4.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 1, green: 1, blue: 1, alpha: 0)), for: .normal)
+        
+        choiceButtons1.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 226/255, green: 225_255, blue: 232/255, alpha: 0.7)), for: .highlighted)
+        choiceButtons2.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 226/255, green: 225_255, blue: 232/255, alpha: 0.7)), for: .highlighted)
+        choiceButtons3.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 226/255, green: 225_255, blue: 232/255, alpha: 0.7)), for: .highlighted)
+        choiceButtons4.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 226/255, green: 225_255, blue: 232/255, alpha: 0.7)), for: .highlighted)
+        
         choiceButtons1.isHidden = true  //ボタン非表示
         choiceButtons2.isHidden = true
         choiceButtons3.isHidden = true
@@ -111,8 +126,37 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
+    private func createImageFromUIColor(color: UIColor) -> UIImage {
+        // 1x1のbitmapを作成
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        // bitmapを塗りつぶし
+        context!.setFillColor(color.cgColor)
+        context!.fill(rect)
+        // UIImageに変換
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == AVAuthorizationStatus.denied {
+            let title: String = "カメラにアクセスできません"
+            let message: String = "設定アプリでこのアプリのカメラへのアクセスを許可してください"
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let settingsAction = UIAlertAction(title: "設定アプリへ", style: .default, handler: { (_) -> Void in
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            })
+            let closeAction: UIAlertAction = UIAlertAction(title: "閉じる", style: .cancel, handler: nil)
+            alert.addAction(settingsAction)
+            alert.addAction(closeAction)
+            self.present(alert, animated: true, completion: nil)
+        }
         
         // Create a session configuration
         let configuration = ARImageTrackingConfiguration()
@@ -259,6 +303,13 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
         // news2.mp4の再生が終了したら呼ばれる
         if playerCondition == 0{
             print("Q\(quizNumber)再生終了")
+            print(choiceButtons1.bounds.height)
+            
+            choiceButtons1.layer.cornerRadius = choiceButtons1.bounds.height * 0.55
+            choiceButtons2.layer.cornerRadius = choiceButtons1.bounds.height * 0.55
+            choiceButtons3.layer.cornerRadius = choiceButtons1.bounds.height * 0.55
+            choiceButtons4.layer.cornerRadius = choiceButtons1.bounds.height * 0.55
+            
             choiceButtons1.isHidden = false //ボタン表示
             choiceButtons2.isHidden = false
             choiceButtons3.isHidden = false

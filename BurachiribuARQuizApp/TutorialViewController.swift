@@ -20,7 +20,6 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
     let imageConfiguration = ARImageTrackingConfiguration()
     
     let imageConfiguration1 = ARImageTrackingConfiguration()
-    let cameraPermissionStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
     
     var userDefaults = UserDefaults(suiteName: "group.com.burachiribu")
     
@@ -79,11 +78,16 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         }
         alert.addAction(toTutorial)
         
-//        let toResult = UIAlertAction(title: "結果", style: .default, handler: { _ in
-//            self.userDefaults!.set([2,1,1,1,1,1,1,1,1,1,1], forKey: "scoreData")
-//            self.performSegue(withIdentifier: "toResult", sender: nil)
-//        })
-//        alert.addAction(toResult)
+        let skipTutorial = UIAlertAction(title: "チュートリアルスキップ", style: .default, handler: { _ in
+            self.performSegue(withIdentifier: "toQuizView", sender: nil)
+        })
+        alert.addAction(skipTutorial)
+        
+        let toResult = UIAlertAction(title: "結果", style: .default, handler: { _ in
+            self.userDefaults!.set([2,1,1,1,1,1,1,1,1,1,1], forKey: "scoreData")
+            self.performSegue(withIdentifier: "toResult", sender: nil)
+        })
+        alert.addAction(toResult)
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel) { (action: UIAlertAction) in
@@ -179,15 +183,14 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         default: break
         }
         
-        if cameraPermissionStatus == AVAuthorizationStatus.denied {
-            let title: String = "カメラの使用が許可されていません。"
-            let message: String = "カメラへのアクセスを許可してください。"
+        if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == AVAuthorizationStatus.denied {
+            let title: String = "カメラにアクセスできません"
+            let message: String = "設定アプリでこのアプリのカメラへのアクセスを許可してください"
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let settingsAction = UIAlertAction(title: "設定", style: .default, handler: { (_) -> Void in
-                guard let settingsURL = URL(string: UIApplication.openSettingsURLString ) else {
-                    return
+            let settingsAction = UIAlertAction(title: "設定アプリへ", style: .default, handler: { (_) -> Void in
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 }
-                UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
             })
             let closeAction: UIAlertAction = UIAlertAction(title: "閉じる", style: .cancel, handler: nil)
             alert.addAction(settingsAction)
