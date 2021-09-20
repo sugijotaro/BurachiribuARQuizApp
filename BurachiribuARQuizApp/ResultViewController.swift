@@ -78,7 +78,7 @@ class ResultViewController: UIViewController {
             }
         }
         resultLabel.text = result.joined(separator: "\n")
-        
+        FirebaseEventsService.result(scoreData: score, score: scoreInt)
         let stringAttributes1: [NSAttributedString.Key : Any] = [
             .foregroundColor : UIColor.red
         ]
