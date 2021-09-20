@@ -201,7 +201,7 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
             choiceButtons2.isHidden = true
             choiceButtons3.isHidden = true
             choiceButtons4.isHidden = true
-            
+            FirebaseEventsService.quizSelect(isCorrect: true, quizNumber: quizNumber, selectedNumber: sender.tag)
             score = userDefaults?.array(forKey: "scoreData") as! [Int]
             score += [0]
             print(score)
@@ -231,7 +231,7 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
             choiceButtons2.isHidden = true
             choiceButtons3.isHidden = true
             choiceButtons4.isHidden = true
-            
+            FirebaseEventsService.quizSelect(isCorrect: false, quizNumber: quizNumber, selectedNumber: sender.tag)
             score = userDefaults?.array(forKey: "scoreData") as! [Int]
             score += [1]
             print(score)

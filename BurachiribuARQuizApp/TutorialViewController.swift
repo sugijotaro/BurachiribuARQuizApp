@@ -57,9 +57,11 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
     override var prefersHomeIndicatorAutoHidden: Bool { true }
     
     @objc func didPlayToEndTime() {
-        // 再生が終了したら呼ばれる
         print("動画再生終了")
         avPlayer?.pause()
+        
+        FirebaseEventsService.tutorialComplete()
+        
         self.dismiss(animated: true, completion: nil)
         self.performSegue(withIdentifier: "toQuizView", sender: nil)
         segue()
@@ -71,6 +73,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
             let url = URL(string: "https://drive.google.com/drive/folders/1MrIoVWPqcHykcmGArWzKvkz3fV2dVHnU?usp=sharing")!
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
+                FirebaseEventsService.ARDownloadEvent()
             }
         }
         alert.addAction(toTutorial)
@@ -112,6 +115,8 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
             node.addChildNode(planeNode)
             
             slideCount = 4
+            
+            FirebaseEventsService.tutorialBegin()
         }
         return node
     }
