@@ -3,7 +3,7 @@ import SceneKit
 import ARKit
 import AVFoundation
 
-class QuizViewController1: UIViewController, ARSCNViewDelegate {
+class QuizViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
     
@@ -295,7 +295,7 @@ class QuizViewController1: UIViewController, ARSCNViewDelegate {
         userDefaults!.set(score, forKey: "scoreData")
         if quizNumber < 10{
             let storyboard: UIStoryboard = self.storyboard!
-            let nextView = storyboard.instantiateViewController(withIdentifier: "Q1") as! QuizViewController1
+            let nextView = storyboard.instantiateViewController(withIdentifier: "QuizView") as! QuizViewController
             nextView.modalPresentationStyle = .fullScreen //or .overFullScreen for transparency
             nextView.quizNumber = self.quizNumber + 1
             navigationController?.pushViewController(nextView, animated: true)

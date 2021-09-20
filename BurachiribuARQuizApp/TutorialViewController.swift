@@ -61,7 +61,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         print("動画再生終了")
         avPlayer?.pause()
         self.dismiss(animated: true, completion: nil)
-        self.performSegue(withIdentifier: "toQ1", sender: nil)
+        self.performSegue(withIdentifier: "toQuizView", sender: nil)
         segue()
     }
     
