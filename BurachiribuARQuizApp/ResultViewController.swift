@@ -24,7 +24,7 @@ class ResultViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet var showResultButton: UIButton!
     
-    var menuBarButtonItem: UIBarButtonItem!
+//    var menuBarButtonItem: UIBarButtonItem!
     
     var moviePlayer: AVPlayer?
     var audioPlayerInstanceDrum : AVAudioPlayer! = nil
@@ -216,8 +216,8 @@ class ResultViewController: UIViewController, UIGestureRecognizerDelegate {
         moviePlayer!.replaceCurrentItem(with: nil)
         endingImage.isHidden = false
         showResultButton.isHidden = false
-        menuBarButtonItem = UIBarButtonItem(image: UIImage(named: "Image"), style: .plain, target: self, action: #selector(menuButtonTapped(_:)))
-        self.navigationItem.setLeftBarButtonItems([menuBarButtonItem], animated: true)
+//        menuBarButtonItem = UIBarButtonItem(image: UIImage(named: "Image"), style: .plain, target: self, action: #selector(menuButtonTapped(_:)))
+//        self.navigationItem.setLeftBarButtonItems([menuBarButtonItem], animated: true)
     }
     
     @IBAction func showResultButtonTapped() {
@@ -228,22 +228,22 @@ class ResultViewController: UIViewController, UIGestureRecognizerDelegate {
         isTapGestureAvailable = true
     }
     
-    @objc func menuButtonTapped(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
-        let toTutorial = UIAlertAction(title: "チュートリアルに戻る", style: .default) { _ in
-            self.navigationController?.popToRootViewController(animated: true)
-        }
-        alert.addAction(toTutorial)
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel) { (action: UIAlertAction) in
-            })
-        }
-
-        alert.popoverPresentationController?.sourceView = view
-        alert.popoverPresentationController?.barButtonItem = menuBarButtonItem
-        self.present(alert, animated: true, completion: nil)
-    }
+//    @objc func menuButtonTapped(_ sender: UIBarButtonItem) {
+//        let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
+//        let toTutorial = UIAlertAction(title: "チュートリアルに戻る", style: .default) { _ in
+//            self.navigationController?.popToRootViewController(animated: true)
+//        }
+//        alert.addAction(toTutorial)
+//
+//        if UIDevice.current.userInterfaceIdiom == .phone {
+//            alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel) { (action: UIAlertAction) in
+//            })
+//        }
+//
+//        alert.popoverPresentationController?.sourceView = view
+//        alert.popoverPresentationController?.barButtonItem = menuBarButtonItem
+//        self.present(alert, animated: true, completion: nil)
+//    }
     
     private func freeMemory(){
         print("メモリ解放")

@@ -43,7 +43,6 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
         print("クイズ\(quizNumber)問目")
         
         if 1 <= quizNumber && quizNumber <= 10{
-            print("quizNumber:\(quizNumber)")
             imageConfiguration.trackingImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-\(quizNumber)", bundle: nil)!
             imageConfiguration.maximumNumberOfTrackedImages = 1
             self.navigationItem.title = "部長とクイズバトルQ\(quizNumber)"
