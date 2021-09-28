@@ -45,6 +45,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate, UIGestureReco
         self.view.addGestureRecognizer(tapGesture)
         
         imageConfiguration.trackingImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-tutorial", bundle: nil)!
+        imageConfiguration.maximumNumberOfTrackedImages = 1
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,12 +78,14 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate, UIGestureReco
         //デバッグ用
         let skipTutorial = UIAlertAction(title: "チュートリアルスキップ", style: .default, handler: { _ in
             self.performSegue(withIdentifier: "toQuizView", sender: nil)
+            self.freeMemory()
         })
         alert.addAction(skipTutorial)
 
         let toResult = UIAlertAction(title: "結果", style: .default, handler: { _ in
             UserDefaults(suiteName: "group.com.burachiribu")!.set([2,1,1,1,1,1,1,1,1,1,1], forKey: "scoreData")
             self.performSegue(withIdentifier: "toResult", sender: nil)
+            self.freeMemory()
         })
         alert.addAction(toResult)
         
@@ -129,7 +132,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate, UIGestureReco
         }
     }
     
-    func showImageView(){
+    private func showImageView(){
         switch slideCount {
         case 1:
             slideImageView.isHidden = false
@@ -197,18 +200,17 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate, UIGestureReco
         
         FirebaseEventsService.tutorialComplete()
         
+        freeMemory()
         self.dismiss(animated: true, completion: nil)
         self.performSegue(withIdentifier: "toQuizView", sender: nil)
-        segue()
     }
     
     
-    func segue(){
-        slideImageView.image = nil
-        avPlayer = nil
+    private func freeMemory(){
         sceneView.removeFromSuperview()
         sceneView = nil
-        print("nilにした")
+        slideImageView.image = nil
+        avPlayer!.replaceCurrentItem(with: nil)
     }
     
 }

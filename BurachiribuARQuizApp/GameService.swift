@@ -16,13 +16,13 @@ class GameService {
         return userSelectedNumber == correctAnswer[quizNumber-1]
     }
     
-    func resetScore(){
+    static func resetScore(){
         for i in 1...10{
             UserDefaults(suiteName: "group.com.burachiribu")!.set(nil, forKey: "Q\(i)score")
         }
     }
     
-    func recordScore(isCorrect: Bool, quizNumber: Int){
+    static func recordScore(isCorrect: Bool, quizNumber: Int){
         UserDefaults(suiteName: "group.com.burachiribu")!.set(isCorrect, forKey: "Q\(quizNumber)score")
     }
     

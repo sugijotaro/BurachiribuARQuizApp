@@ -11,7 +11,7 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var findNewsImageView: UIImageView!
     @IBOutlet var symbolDisplayImageView :UIImageView!
-    @IBOutlet var explanationVideoView :UIView!
+    @IBOutlet weak var explanationVideoView :UIView!
     
     @IBOutlet var quizView :UIView!
     @IBOutlet var newsUIImageView: UIImageView!
@@ -20,19 +20,16 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var choiceButtons: [UIButton] = []
     
     private var uiVideoPlayer: AVPlayer?
-    private var avPlayer: AVPlayer?
-    private  var correctVideoPlayer: AVPlayer?
-    private  var incorrectVideoPlayer: AVPlayer?
-    
-    private  var isPlayerFinishedWatchQuizVideo: Bool = false
+    private weak var quizVideoPlayer: AVPlayer?
+    private var correctVideoPlayer: AVPlayer?
+    private var incorrectVideoPlayer: AVPlayer?
     
     var quizNumber: Int = 1
     
-    private var audioPlayerInstanceCorrect : AVAudioPlayer! = nil  // 再生するサウンドのインスタンス
-    private var audioPlayerInstanceIncorrect : AVAudioPlayer! = nil  // 再生するサウンドのインスタンス
+    private  var isPlayerFinishedWatchQuizVideo: Bool = false
     
-    var score: [Int] = [1]   //0=正解 1=不正解
-    
+    private var audioPlayerInstanceCorrect : AVAudioPlayer! = nil
+    private var audioPlayerInstanceIncorrect : AVAudioPlayer! = nil
     
     lazy var playerLayer: AVPlayerLayer? = AVPlayerLayer(player: uiVideoPlayer)
     lazy var playerLayerCorrect: AVPlayerLayer? = AVPlayerLayer(player: correctVideoPlayer)
@@ -42,15 +39,15 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
         super.viewDidLoad()
         
         sceneView.delegate = self
-//        sceneView.scene = SCNScene()
         
         if quizNumber == 1{
-            //リセット
+            GameService.resetScore()
         }
         
         if 1 <= quizNumber && quizNumber <= 10{
             print("quizNumber:\(quizNumber)")
             imageConfiguration.trackingImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-\(quizNumber)", bundle: nil)!
+            imageConfiguration.maximumNumberOfTrackedImages = 1
             self.navigationItem.title = "部長とクイズバトルQ\(quizNumber)"
             newsUIImageView.image = UIImage(named: "news\(quizNumber+1)UI.png")
             findNewsImageView.image = UIImage(named: "findnews\(quizNumber+1).png")
@@ -142,15 +139,13 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
     
     
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        if 1 <= quizNumber && quizNumber <= 10{
-            avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news\(quizNumber+1)", withExtension: "mp4")!)
-        }
+        quizVideoPlayer = AVPlayer(url: Bundle.main.url(forResource: "news\(quizNumber+1)", withExtension: "mp4")!)
         let node = SCNNode()
         if let imageAnchor = anchor as? ARImageAnchor , !isPlayerFinishedWatchQuizVideo{
             let skScene = SKScene(size: CGSize(width: CGFloat(1000), height: CGFloat(1000)))
-            NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: avPlayer?.currentItem)
+            NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: quizVideoPlayer?.currentItem)
             
-            let skNode = SKVideoNode(avPlayer: avPlayer!)
+            let skNode = SKVideoNode(avPlayer: quizVideoPlayer!)
             skNode.position = CGPoint(x: skScene.size.width / 2.0, y: skScene.size.height / 2.0)
             skNode.size = skScene.size
             skNode.yScale = -1.0
@@ -192,12 +187,14 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
             symbolDisplayImageView.image = UIImage(named: "true.png")
             audioPlayerInstanceCorrect.play()
             FirebaseEventsService.quizSelect(isCorrect: true, quizNumber: quizNumber, selectedNumber: sender.tag)
+            GameService.recordScore(isCorrect: true, quizNumber: quizNumber)
             
         } else {
             print("Q\(quizNumber)不正解")
             symbolDisplayImageView.image = UIImage(named: "false.png")
             audioPlayerInstanceIncorrect.play()
             FirebaseEventsService.quizSelect(isCorrect: false, quizNumber: quizNumber, selectedNumber: sender.tag)
+            GameService.recordScore(isCorrect: false, quizNumber: quizNumber)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {   //1秒後の処理
@@ -227,16 +224,12 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @objc func didPlayToEndTime() {
-        // クイズ出題動画の再生が終了したとき
-        print("クイズ出題動画の再生が終了した  \(isPlayerFinishedWatchQuizVideo)")
-        if !isPlayerFinishedWatchQuizVideo{
-            print("Q\(quizNumber)再生終了")
-            
-            for choiceButton in choiceButtons{
-                choiceButton.isHidden = false
-            }
-            isPlayerFinishedWatchQuizVideo = true
+        print("Q\(quizNumber)再生終了")
+        
+        for choiceButton in choiceButtons{
+            choiceButton.isHidden = false
         }
+        isPlayerFinishedWatchQuizVideo = true
     }
     
     @objc func didPlayToEndTimeCorrect() {
@@ -247,24 +240,8 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
         resultMovieFinished()
     }
     
-    func resultMovieFinished(){
-        symbolDisplayImageView.image = nil
-        findNewsImageView.image = nil
-        newsUIImageView.image = nil
-        avPlayer = nil
-        sceneView.removeFromSuperview()
-        sceneView = nil
-        uiVideoPlayer = nil
-        playerLayer?.removeFromSuperlayer()
-        playerLayer = nil
-        correctVideoPlayer = nil
-        playerLayerCorrect?.removeFromSuperlayer()
-        playerLayerCorrect = nil
-        incorrectVideoPlayer = nil
-        playerLayerIncorrect?.removeFromSuperlayer()
-        playerLayerIncorrect = nil
-        print("nilにした")
-        userDefaults!.set(score, forKey: "scoreData")
+    private func resultMovieFinished(){
+        freeMemory()
         if quizNumber < 10{
             let storyboard: UIStoryboard = self.storyboard!
             let nextView = storyboard.instantiateViewController(withIdentifier: "QuizView") as! QuizViewController
@@ -276,6 +253,28 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
+    private func freeMemory(){
+        sceneView.removeFromSuperview()
+        sceneView = nil
+        findNewsImageView.removeFromSuperview()
+        findNewsImageView.image = nil
+        findNewsImageView = nil
+        symbolDisplayImageView.removeFromSuperview()
+        symbolDisplayImageView.image = nil
+        symbolDisplayImageView = nil
+        explanationVideoView.removeFromSuperview()
+        explanationVideoView = nil
+        quizView.removeFromSuperview()
+        quizView = nil
+        newsUIImageView.removeFromSuperview()
+        newsUIImageView = nil
+        quizBackGroundImageView.removeFromSuperview()
+        quizBackGroundImageView = nil
+        uiVideoPlayer!.replaceCurrentItem(with: nil)
+        quizVideoPlayer!.replaceCurrentItem(with: nil)
+        correctVideoPlayer!.replaceCurrentItem(with: nil)
+        incorrectVideoPlayer!.replaceCurrentItem(with: nil)
+    }
     
     private func createImageFromUIColor(color: UIColor) -> UIImage {
         // 1x1のbitmapを作成
