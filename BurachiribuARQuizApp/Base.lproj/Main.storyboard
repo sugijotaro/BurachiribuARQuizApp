@@ -20,44 +20,24 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gCo-QA-pCh">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </arscnView>
-                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7CC-6G-yuq" userLabel="SlideView">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pzj-Da-DNx">
                                 <rect key="frame" x="20.5" y="230.5" width="373" height="489"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pzj-Da-DNx">
-                                        <rect key="frame" x="0.0" y="0.0" width="373" height="489"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="pzj-Da-DNx" firstAttribute="top" secondItem="7CC-6G-yuq" secondAttribute="top" id="8Gq-Ui-Fui"/>
-                                    <constraint firstItem="pzj-Da-DNx" firstAttribute="leading" secondItem="7CC-6G-yuq" secondAttribute="leading" id="Bcd-AL-dgP"/>
-                                    <constraint firstAttribute="bottom" secondItem="pzj-Da-DNx" secondAttribute="bottom" id="GKo-4N-oy1"/>
-                                    <constraint firstAttribute="width" secondItem="7CC-6G-yuq" secondAttribute="height" multiplier="715:938" id="fU7-yK-WAz"/>
-                                    <constraint firstAttribute="trailing" secondItem="pzj-Da-DNx" secondAttribute="trailing" id="gsI-Do-zLU"/>
+                                    <constraint firstAttribute="width" secondItem="pzj-Da-DNx" secondAttribute="height" multiplier="715:938" id="dbM-CX-kHf"/>
                                 </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wbi-Jd-sog">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <connections>
-                                    <action selector="touch" destination="Tb2-pW-cJg" eventType="touchUpInside" id="wKO-3w-X7e"/>
-                                </connections>
-                            </button>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Ws-CA-VbI"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="Wbi-Jd-sog" firstAttribute="top" secondItem="6Ws-CA-VbI" secondAttribute="top" id="0at-Mw-QnI"/>
                             <constraint firstItem="gCo-QA-pCh" firstAttribute="leading" secondItem="6Ws-CA-VbI" secondAttribute="leading" id="1sI-PO-r8K"/>
-                            <constraint firstItem="Wbi-Jd-sog" firstAttribute="leading" secondItem="6Ws-CA-VbI" secondAttribute="leading" id="DXO-gO-P1U"/>
-                            <constraint firstAttribute="bottom" secondItem="Wbi-Jd-sog" secondAttribute="bottom" id="Eao-rC-3wO"/>
-                            <constraint firstItem="7CC-6G-yuq" firstAttribute="centerX" secondItem="gxf-hu-sAn" secondAttribute="centerX" id="KEL-LF-8hm"/>
+                            <constraint firstItem="pzj-Da-DNx" firstAttribute="centerX" secondItem="gxf-hu-sAn" secondAttribute="centerX" id="4mv-n2-42o"/>
+                            <constraint firstItem="pzj-Da-DNx" firstAttribute="width" secondItem="6Ws-CA-VbI" secondAttribute="width" multiplier="0.9" id="HGC-iO-N08"/>
                             <constraint firstAttribute="bottom" secondItem="gCo-QA-pCh" secondAttribute="bottom" id="OGV-71-BNZ"/>
                             <constraint firstAttribute="trailing" secondItem="gCo-QA-pCh" secondAttribute="trailing" id="Tyh-AN-YoQ"/>
+                            <constraint firstItem="pzj-Da-DNx" firstAttribute="centerY" secondItem="6Ws-CA-VbI" secondAttribute="centerY" id="ZkC-sM-Nus"/>
                             <constraint firstItem="gCo-QA-pCh" firstAttribute="top" secondItem="gxf-hu-sAn" secondAttribute="top" id="cHL-VG-7dr"/>
-                            <constraint firstItem="7CC-6G-yuq" firstAttribute="width" secondItem="6Ws-CA-VbI" secondAttribute="width" multiplier="0.9" id="hIT-in-iF4"/>
-                            <constraint firstAttribute="trailing" secondItem="Wbi-Jd-sog" secondAttribute="trailing" id="m4O-Kk-4Rs"/>
-                            <constraint firstItem="7CC-6G-yuq" firstAttribute="centerY" secondItem="6Ws-CA-VbI" secondAttribute="centerY" id="oRk-hy-Use"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="sSe-ti-VYB" appends="YES" id="qmS-iw-29f"/>
@@ -75,7 +55,6 @@
                         <outlet property="actionButon" destination="Cic-uz-l5F" id="10J-UW-jwt"/>
                         <outlet property="sceneView" destination="gCo-QA-pCh" id="Faa-Oi-650"/>
                         <outlet property="slideImageView" destination="pzj-Da-DNx" id="k4t-Ub-dGQ"/>
-                        <outlet property="slideView" destination="7CC-6G-yuq" id="kL8-kZ-fsx"/>
                         <segue destination="AD7-zb-4XL" kind="show" identifier="toQuizView" id="Aal-wm-lVk"/>
                         <segue destination="TzH-NH-HeZ" kind="show" identifier="toResult" id="I3w-1n-HHE"/>
                     </connections>

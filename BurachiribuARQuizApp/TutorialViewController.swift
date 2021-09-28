@@ -4,21 +4,19 @@ import SceneKit
 import ARKit
 import AVFoundation
 
-class TutorialViewController: UIViewController, ARSCNViewDelegate {
+class TutorialViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
     let imageConfiguration = ARImageTrackingConfiguration()
     let imageConfiguration1 = ARImageTrackingConfiguration()
     
-    @IBOutlet var slideView: UIView!
-    @IBOutlet var slideImageView: UIImageView!
-    
     @IBOutlet var actionButon: UIBarButtonItem!
     
-    private var slideCount: Int = 1
-    private var tutorialNode1: SCNNode?
+    @IBOutlet var slideImageView: UIImageView!
     
     var avPlayer: AVPlayer?
+    
+    private var slideCount: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +24,6 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         sceneView.delegate = self
         
         slideImageView.isHidden = false
-        slideView.isHidden = false
         slideImageView.image = UIImage(named: "slide1")
         
         self.navigationItem.title = "チュートリアル"
@@ -42,6 +39,10 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         }
         
         avPlayer = AVPlayer(url: Bundle.main.url(forResource: "tutorial", withExtension: "mp4")!)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
+        tapGesture.delegate = self
+        self.view.addGestureRecognizer(tapGesture)
         
         imageConfiguration.trackingImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-tutorial", bundle: nil)!
     }
@@ -102,7 +103,6 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         }else if slideCount == 3{
             slideCount = 2
             showImageView()
-            tutorialNode1?.isHidden = true
             sceneView.session.run(imageConfiguration1)
         }
     }
@@ -115,11 +115,10 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
             slideCount = 3
             showImageView()
             sceneView.session.run(imageConfiguration)
-            tutorialNode1?.isHidden = false
         }
     }
     
-    @IBAction func touch(){
+    @objc func tapped(_ sender: UITapGestureRecognizer) {
         if slideCount == 1{
             slideCount = 2
             showImageView()
@@ -127,7 +126,6 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
             slideCount = 3
             showImageView()
             sceneView.session.run(imageConfiguration)
-            tutorialNode1?.isHidden = false
         }
     }
     
@@ -135,19 +133,16 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         switch slideCount {
         case 1:
             slideImageView.isHidden = false
-            slideView.isHidden = false
             autoreleasepool {
                 slideImageView.image = UIImage(named: "slide1")
             }
         case 2:
             slideImageView.isHidden = false
-            slideView.isHidden = false
             autoreleasepool {
                 slideImageView.image = UIImage(named: "slide2")
             }
         case 3:
             slideImageView.isHidden = true
-            slideView.isHidden = true
         default: break
         }
         
