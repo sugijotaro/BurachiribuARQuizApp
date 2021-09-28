@@ -31,6 +31,16 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         
         self.navigationItem.title = "チュートリアル"
         
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .white
+            navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        } else {
+            navigationController?.navigationBar.barTintColor = .white
+        }
+        
         avPlayer = AVPlayer(url: Bundle.main.url(forResource: "tutorial", withExtension: "mp4")!)
         
         imageConfiguration.trackingImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-tutorial", bundle: nil)!
@@ -64,16 +74,16 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         alert.addAction(toTutorial)
         
         //デバッグ用
-//        let skipTutorial = UIAlertAction(title: "チュートリアルスキップ", style: .default, handler: { _ in
-//            self.performSegue(withIdentifier: "toQuizView", sender: nil)
-//        })
-//        alert.addAction(skipTutorial)
-//
-//        let toResult = UIAlertAction(title: "結果", style: .default, handler: { _ in
-//            self.userDefaults!.set([2,1,1,1,1,1,1,1,1,1,1], forKey: "scoreData")
-//            self.performSegue(withIdentifier: "toResult", sender: nil)
-//        })
-//        alert.addAction(toResult)
+        let skipTutorial = UIAlertAction(title: "チュートリアルスキップ", style: .default, handler: { _ in
+            self.performSegue(withIdentifier: "toQuizView", sender: nil)
+        })
+        alert.addAction(skipTutorial)
+
+        let toResult = UIAlertAction(title: "結果", style: .default, handler: { _ in
+            UserDefaults(suiteName: "group.com.burachiribu")!.set([2,1,1,1,1,1,1,1,1,1,1], forKey: "scoreData")
+            self.performSegue(withIdentifier: "toResult", sender: nil)
+        })
+        alert.addAction(toResult)
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel) { (action: UIAlertAction) in
