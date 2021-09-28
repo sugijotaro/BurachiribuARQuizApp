@@ -67,6 +67,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate, UIGestureReco
     @IBAction func menuButton () {
         let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
         let toTutorial = UIAlertAction(title: "ARトラッキング素材をダウンロードする", style: .default) { _ in
+            print("ARトラッキング素材をダウンロードする")
             let url = URL(string: "https://drive.google.com/drive/folders/1MrIoVWPqcHykcmGArWzKvkz3fV2dVHnU?usp=sharing")!
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
@@ -78,6 +79,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate, UIGestureReco
         //デバッグ用
         let skipTutorial = UIAlertAction(title: "チュートリアルスキップ", style: .default, handler: { _ in
             print("チュートリアルスキップ")
+            GameService.resetScore()
             self.performSegue(withIdentifier: "toQuizView", sender: nil)
             self.freeMemory()
         })
@@ -182,6 +184,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate, UIGestureReco
             skNode.size = skScene.size
             skNode.yScale = -1.0
             skNode.play()
+            print("チュートリアル動画再生開始")
             skScene.addChild(skNode)
             let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
             plane.firstMaterial?.diffuse.contents = skScene
@@ -197,18 +200,20 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate, UIGestureReco
     }
     
     @objc func didPlayToEndTime() {
-        print("動画再生終了")
+        print("チュートリアル動画再生終了")
         avPlayer?.pause()
         
         FirebaseEventsService.tutorialComplete()
         
         freeMemory()
+        GameService.resetScore()
         self.dismiss(animated: true, completion: nil)
         self.performSegue(withIdentifier: "toQuizView", sender: nil)
     }
     
     
     private func freeMemory(){
+        print("メモリ解放")
         sceneView.removeFromSuperview()
         sceneView = nil
         slideImageView.image = nil

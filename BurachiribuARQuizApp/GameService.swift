@@ -3,14 +3,7 @@ import Foundation
 
 let correctAnswer = [3,2,3,1,3,4,2,4,2,3]
 
-
 class GameService {
-    
-    struct GameScore {
-        //    let userSelectedNumberQ1: Int
-        
-        
-    }
     
     static func isCorrect(quizNumber: Int, userSelectedNumber: Int) -> Bool{
         return userSelectedNumber == correctAnswer[quizNumber-1]
