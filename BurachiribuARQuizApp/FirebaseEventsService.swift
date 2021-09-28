@@ -46,15 +46,11 @@ class FirebaseEventsService {
     }
     
     ///結果イベント
-    static func result(scoreData: [Int], score: Int){
-        let data = scoreData.map({ (value: Int) -> String in
-            return "\(value)"
-        }).joined(separator: ",").dropFirst(2)
-        
+    static func result(resultBoolArray: [Bool], score: Int){
         DispatchQueue.main.async {
             Analytics.logEvent(AnalyticsEventEarnVirtualCurrency, parameters: [
                 AnalyticsParameterValue: score,
-                AnalyticsParameterVirtualCurrencyName: data
+                AnalyticsParameterVirtualCurrencyName: resultBoolArray
             ])
         }
     }

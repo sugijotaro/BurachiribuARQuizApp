@@ -4,127 +4,88 @@ import SceneKit
 import ARKit
 import AVFoundation
 
-class ResultViewController: UIViewController {
+class ResultViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
-    @IBOutlet var resultView: UIView!
-    @IBOutlet var touchButton: UIButton!
-    
-    @IBOutlet var movieView: UIView!
-    
-    @IBOutlet var resultLabel: UILabel!
-    
-    @IBOutlet var sum: UILabel!
-    
-    @IBOutlet var name: UILabel!
-    
-    @IBOutlet var endingImage: UIImageView!
-    
-    @IBOutlet var showResultButton: UIButton!
-    
-    var score: [Int] = [1]   //0=正解 1=不正解
-    var userDefaults = UserDefaults(suiteName: "group.com.burachiribu")
-    
-    var shareImage: UIImage?
-    
-    var scoreInt: Int = 0
-    
-    var I: Int = 0
-    
-    var audioPlayerInstanceDrum : AVAudioPlayer! = nil  // 再生するサウンドのインスタンス
-    
     let imageConfiguration: ARImageTrackingConfiguration = {
         let configuration = ARImageTrackingConfiguration()
         configuration.maximumNumberOfTrackedImages = 0
         return configuration
     }()
     
-    var moviePlayer: AVPlayer?
+    @IBOutlet var movieView: UIView!
     
-    var result: [String] = []
+    @IBOutlet var resultView: UIView!
+    @IBOutlet var scoreIntLabel: UILabel!
+    @IBOutlet var resultLabel: UILabel!
+    @IBOutlet var nameLabel: UILabel!
+    
+    @IBOutlet var endingImage: UIImageView!
+    
+    @IBOutlet var showResultButton: UIButton!
     
     var menuBarButtonItem: UIBarButtonItem!
+    
+    var moviePlayer: AVPlayer?
+    var audioPlayerInstanceDrum : AVAudioPlayer! = nil
+    
+    var resultScoreInt: Int = 0
+    
+    var isTapGestureAvailable = false
+    var isResultAnnouncementFinished = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         resultView.isHidden = true
-        touchButton.isHidden = true
         endingImage.isHidden = true
         showResultButton.isHidden = true
         
-        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
+        tapGesture.delegate = self
+        self.view.addGestureRecognizer(tapGesture)
         
         self.navigationItem.hidesBackButton = true
         self.navigationItem.title = "結果発表"
         
+        resultScoreInt = GameService.resultScoreInt()
+        print("スコア：\(resultScoreInt)/10")
         
-//        if userDefaults?.array(forKey: "scoreData") != nil{
-            score = userDefaults?.array(forKey: "scoreData") as! [Int]
-//        } else {
-//            score = [2,1,1,1,1,1,1,1,1,1,1]
-//        }
-//        if score.count < 12{
-//            score = [2,1,1,1,1,1,1,1,1,1,1]
-////            score = [2,0,0,0,0,0,0,0,0,0,0]
-//        }
-        
-        for i in 1...10{
-            if score[i] == 0{
-                result.append("⭕️")
-                scoreInt = scoreInt + 1
-            }else{
-                result.append("❌")
-            }
-        }
-        resultLabel.text = result.joined(separator: "\n")
-        FirebaseEventsService.result(scoreData: score, score: scoreInt)
-        let stringAttributes1: [NSAttributedString.Key : Any] = [
-            .foregroundColor : UIColor.red
-        ]
-        let string1 = NSAttributedString(string: String(scoreInt), attributes: stringAttributes1)
-        
-        let stringAttributes2: [NSAttributedString.Key : Any] = [
-            .foregroundColor : UIColor.black
-        ]
+        let stringAttributes1: [NSAttributedString.Key : Any] = [.foregroundColor : UIColor.red]
+        let string1 = NSAttributedString(string: String(resultScoreInt), attributes: stringAttributes1)
+        let stringAttributes2: [NSAttributedString.Key : Any] = [.foregroundColor : UIColor.black]
         let string2 = NSAttributedString(string: "／10", attributes: stringAttributes2)
         
         let mutableAttributedString = NSMutableAttributedString()
         mutableAttributedString.append(string1)
         mutableAttributedString.append(string2)
         
-        sum.attributedText = mutableAttributedString
-        print(scoreInt)
+        scoreIntLabel.attributedText = mutableAttributedString
         
-        if scoreInt > 9{
-            name.text = "えいえんのブラチリブ部員"
-        } else if scoreInt > 7{
-            name.text = "カリスマブラチリブ部員"
-        } else if scoreInt > 5{
-            name.text = "スーパーブラチリブ部員"
-        } else if scoreInt > 3{
-            name.text = "まことのブラチリブ部員"
-        } else if scoreInt >= 0{
-            name.text = "ふつうのブラチリブ部員"
-        }
+        var resultStringArray = GameService.resultBoolArray().map({ (value: Bool) -> String in
+            if value {
+                return "⭕️"
+            }else{
+                return "❌"
+            }
+        })
+        resultLabel.text = resultStringArray.joined(separator: "\n")
+        print(resultStringArray)
+        
+        nameLabel.text = GameService.resultName(score: resultScoreInt)
+        print("称号：\(nameLabel.text)")
+        
+        FirebaseEventsService.result(resultBoolArray: GameService.resultBoolArray(), score: resultScoreInt)
+        
         
         let soundFilePathDrum = Bundle.main.path(forResource: "drum", ofType: "mp3")!
-        
         let soundDrum:URL = URL(fileURLWithPath: soundFilePathDrum)
-        // AVAudioPlayerのインスタンスを作成,ファイルの読み込み
         do {
             audioPlayerInstanceDrum = try AVAudioPlayer(contentsOf: soundDrum, fileTypeHint:nil)
         } catch {
             print("AVAudioPlayerインスタンス作成でエラー")
         }
-        // 再生準備
         audioPlayerInstanceDrum.prepareToPlay()
-        
-        UIGraphicsBeginImageContextWithOptions(resultView.bounds.size, false, 0.0)
-        resultView.layer.render(in: UIGraphicsGetCurrentContext()!)
-//        self.view.drawHierarchy(in: self.resultView.bounds, afterScreenUpdates: true)
-        shareImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
         
         if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
@@ -135,7 +96,6 @@ class ResultViewController: UIViewController {
         } else {
             navigationController?.navigationBar.barTintColor = .white
         }
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -150,6 +110,7 @@ class ResultViewController: UIViewController {
         playerLayer.zPosition = -1
         movieView.layer.insertSublayer(playerLayer, at: 0)
         moviePlayer!.play()
+        print("result.mp4の再生開始")
         
         NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: moviePlayer?.currentItem)
     }
@@ -169,59 +130,70 @@ class ResultViewController: UIViewController {
     override var prefersHomeIndicatorAutoHidden: Bool { true }
     
     @objc func didPlayToEndTime() {
+        print("result.mp4の再生終了")
         movieView.isHidden = true
         movieView.layer.sublayers = nil
         audioPlayerInstanceDrum.play()
+        print("ドラムロール再生開始")
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            print("ドラムロール再生終了")
             self.resultView.isHidden = false
-            self.touchButton.isHidden = false
+            self.isTapGestureAvailable = true
         }
     }
     
-    @IBAction func touched(){
-        if I == 0{
-            self.resultView.isHidden = true
-            self.touchButton.isHidden = true
-            self.movieView.isHidden = false
-            if scoreInt >= 5{
-                let pathWin = Bundle.main.path(forResource: "resultWin", ofType: "mp4")!
-                moviePlayer = AVPlayer(url: URL(fileURLWithPath: pathWin))
-                
-                let playerLayerWin = AVPlayerLayer(player: moviePlayer)
-                playerLayerWin.frame = self.movieView.bounds
-                playerLayerWin.videoGravity = .resizeAspectFill
-                playerLayerWin.zPosition = -1
-                movieView.layer.insertSublayer(playerLayerWin, at: 0)
-                moviePlayer!.play()
-                NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTimeWin), name: .AVPlayerItemDidPlayToEndTime, object: moviePlayer?.currentItem)
+    @objc func tapped(_ sender: UITapGestureRecognizer) {
+        if isTapGestureAvailable{
+            isTapGestureAvailable = false
+            if isResultAnnouncementFinished{
+                print("戻る")
+                showResultButton.isEnabled = true
+                resultView.isHidden = true
+                endingImage.isHidden = false
             } else {
-                let pathLose = Bundle.main.path(forResource: "resultLose", ofType: "mp4")!
-                moviePlayer = AVPlayer(url: URL(fileURLWithPath: pathLose))
+                self.resultView.isHidden = true
+                self.movieView.isHidden = false
                 
-                let playerLayerLose = AVPlayerLayer(player: moviePlayer)
-                playerLayerLose.frame = self.movieView.bounds
-                playerLayerLose.videoGravity = .resizeAspectFill
-                playerLayerLose.zPosition = -1
-                movieView.layer.insertSublayer(playerLayerLose, at: 0)
-                moviePlayer!.play()
-                NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTimeLose), name: .AVPlayerItemDidPlayToEndTime, object: moviePlayer?.currentItem)
+                if resultScoreInt >= 5{
+                    let pathWin = Bundle.main.path(forResource: "resultWin", ofType: "mp4")!
+                    moviePlayer = AVPlayer(url: URL(fileURLWithPath: pathWin))
+                    
+                    let playerLayerWin = AVPlayerLayer(player: moviePlayer)
+                    playerLayerWin.frame = self.movieView.bounds
+                    playerLayerWin.videoGravity = .resizeAspectFill
+                    playerLayerWin.zPosition = -1
+                    movieView.layer.insertSublayer(playerLayerWin, at: 0)
+                    moviePlayer!.play()
+                    print("resultWin.mp4の再生開始")
+                    NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTimeWin), name: .AVPlayerItemDidPlayToEndTime, object: moviePlayer?.currentItem)
+                } else {
+                    let pathLose = Bundle.main.path(forResource: "resultLose", ofType: "mp4")!
+                    moviePlayer = AVPlayer(url: URL(fileURLWithPath: pathLose))
+                    
+                    let playerLayerLose = AVPlayerLayer(player: moviePlayer)
+                    playerLayerLose.frame = self.movieView.bounds
+                    playerLayerLose.videoGravity = .resizeAspectFill
+                    playerLayerLose.zPosition = -1
+                    movieView.layer.insertSublayer(playerLayerLose, at: 0)
+                    moviePlayer!.play()
+                    print("resultLose.mp4の再生開始")
+                    NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTimeLose), name: .AVPlayerItemDidPlayToEndTime, object: moviePlayer?.currentItem)
+                }
             }
-        }else {
-            resultView.isHidden = true
-            touchButton.isHidden = true
         }
-        
     }
     
     @objc func didPlayToEndTimeWin() {
-        ED()
+        print("resultWin.mp4の再生終了")
+        startEndingMovie()
     }
     
     @objc func didPlayToEndTimeLose() {
-        ED()
+        print("resultLose.mp4の再生終了")
+        startEndingMovie()
     }
     
-    func ED () {
+    func startEndingMovie () {
         movieView.layer.sublayers = nil
         let pathED = Bundle.main.path(forResource: "ED", ofType: "mp4")!
         moviePlayer = AVPlayer(url: URL(fileURLWithPath: pathED))
@@ -232,22 +204,27 @@ class ResultViewController: UIViewController {
         playerLayerED.zPosition = -1
         movieView.layer.insertSublayer(playerLayerED, at: 0)
         moviePlayer!.play()
+        print("ED.mp4の再生開始")
         NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTimeED), name: .AVPlayerItemDidPlayToEndTime, object: moviePlayer?.currentItem)
     }
     
     @objc func didPlayToEndTimeED() {
+        print("ED.mp4の再生終了")
+        isResultAnnouncementFinished = true
         movieView.isHidden = true
-        moviePlayer = nil
+        moviePlayer!.replaceCurrentItem(with: nil)
         endingImage.isHidden = false
         showResultButton.isHidden = false
         menuBarButtonItem = UIBarButtonItem(image: UIImage(named: "Image"), style: .plain, target: self, action: #selector(menuButtonTapped(_:)))
         self.navigationItem.setLeftBarButtonItems([menuBarButtonItem], animated: true)
     }
     
-    @IBAction func showResultED() {
+    @IBAction func showResultButtonTapped() {
+        print("結果発表画面表示")
         resultView.isHidden = false
-        touchButton.isHidden = false
-        I = 1
+        endingImage.isHidden = true
+        showResultButton.isEnabled = false
+        isTapGestureAvailable = true
     }
     
     @objc func menuButtonTapped(_ sender: UIBarButtonItem) {
@@ -266,10 +243,11 @@ class ResultViewController: UIViewController {
         alert.popoverPresentationController?.barButtonItem = menuBarButtonItem
         self.present(alert, animated: true, completion: nil)
     }
-
-}
-
-
-extension ResultViewController: ARSCNViewDelegate {
+    
+    private func freeMemory(){
+        movieView.removeFromSuperview()
+        movieView = nil
+        moviePlayer!.replaceCurrentItem(with: nil)
+    }
 
 }

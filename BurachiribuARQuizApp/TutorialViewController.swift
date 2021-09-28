@@ -77,13 +77,15 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate, UIGestureReco
         
         //デバッグ用
         let skipTutorial = UIAlertAction(title: "チュートリアルスキップ", style: .default, handler: { _ in
+            print("チュートリアルスキップ")
             self.performSegue(withIdentifier: "toQuizView", sender: nil)
             self.freeMemory()
         })
         alert.addAction(skipTutorial)
 
-        let toResult = UIAlertAction(title: "結果", style: .default, handler: { _ in
-            UserDefaults(suiteName: "group.com.burachiribu")!.set([2,1,1,1,1,1,1,1,1,1,1], forKey: "scoreData")
+        let toResult = UIAlertAction(title: "結果発表へ", style: .default, handler: { _ in
+            print("結果発表へ")
+            GameService.resetScore()
             self.performSegue(withIdentifier: "toResult", sender: nil)
             self.freeMemory()
         })

@@ -26,4 +26,39 @@ class GameService {
         UserDefaults(suiteName: "group.com.burachiribu")!.set(isCorrect, forKey: "Q\(quizNumber)score")
     }
     
+    static func resultScoreInt() -> Int {
+        var score = 0
+        for i in 1...10{
+            if UserDefaults(suiteName: "group.com.burachiribu")!.bool(forKey: "Q\(i)score") ?? false {
+                score += 1
+            }
+        }
+        return score
+    }
+    
+    static func resultBoolArray() -> [Bool] {
+        var resultArray: [Bool] = []
+        for i in 1...10{
+            if UserDefaults(suiteName: "group.com.burachiribu")!.bool(forKey: "Q\(i)score") ?? false {
+                resultArray += [true]
+            }else{
+                resultArray += [false]
+            }
+        }
+        return resultArray
+    }
+    
+    static func resultName(score: Int) -> String{
+        if score > 9{
+            return "えいえんのブラチリブ部員"
+        } else if score > 7{
+            return "カリスマブラチリブ部員"
+        } else if score > 5{
+            return "スーパーブラチリブ部員"
+        } else if score > 3{
+            return "まことのブラチリブ部員"
+        } else {
+            return "ふつうのブラチリブ部員"
+        }
+    }
 }
