@@ -129,18 +129,6 @@ class ResultViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override var prefersHomeIndicatorAutoHidden: Bool { true }
     
-    @objc func didPlayToEndTime() {
-        print("result.mp4の再生終了")
-        movieView.isHidden = true
-        movieView.layer.sublayers = nil
-        audioPlayerInstanceDrum.play()
-        print("ドラムロール再生開始")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            print("ドラムロール再生終了")
-            self.resultView.isHidden = false
-            self.isTapGestureAvailable = true
-        }
-    }
     
     @objc func tapped(_ sender: UITapGestureRecognizer) {
         if isTapGestureAvailable{
@@ -183,16 +171,6 @@ class ResultViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    @objc func didPlayToEndTimeWin() {
-        print("resultWin.mp4の再生終了")
-        startEndingMovie()
-    }
-    
-    @objc func didPlayToEndTimeLose() {
-        print("resultLose.mp4の再生終了")
-        startEndingMovie()
-    }
-    
     func startEndingMovie () {
         movieView.layer.sublayers = nil
         let pathED = Bundle.main.path(forResource: "ED", ofType: "mp4")!
@@ -206,6 +184,29 @@ class ResultViewController: UIViewController, UIGestureRecognizerDelegate {
         moviePlayer!.play()
         print("ED.mp4の再生開始")
         NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTimeED), name: .AVPlayerItemDidPlayToEndTime, object: moviePlayer?.currentItem)
+    }
+    
+    @objc func didPlayToEndTime() {
+        print("result.mp4の再生終了")
+        movieView.isHidden = true
+        movieView.layer.sublayers = nil
+        audioPlayerInstanceDrum.play()
+        print("ドラムロール再生開始")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            print("ドラムロール再生終了")
+            self.resultView.isHidden = false
+            self.isTapGestureAvailable = true
+        }
+    }
+    
+    @objc func didPlayToEndTimeWin() {
+        print("resultWin.mp4の再生終了")
+        startEndingMovie()
+    }
+    
+    @objc func didPlayToEndTimeLose() {
+        print("resultLose.mp4の再生終了")
+        startEndingMovie()
     }
     
     @objc func didPlayToEndTimeED() {
@@ -245,6 +246,7 @@ class ResultViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     private func freeMemory(){
+        print("メモリ解放")
         movieView.removeFromSuperview()
         movieView = nil
         moviePlayer!.replaceCurrentItem(with: nil)

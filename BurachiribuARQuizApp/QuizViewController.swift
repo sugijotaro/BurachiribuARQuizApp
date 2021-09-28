@@ -40,9 +40,7 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
         
         sceneView.delegate = self
         
-        if quizNumber == 1{
-            GameService.resetScore()
-        }
+        print("クイズ\(quizNumber)問目")
         
         if 1 <= quizNumber && quizNumber <= 10{
             print("quizNumber:\(quizNumber)")
@@ -150,6 +148,7 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
             skNode.size = skScene.size
             skNode.yScale = -1.0
             skNode.play()
+            print("Q\(quizNumber)再生開始")
             skScene.addChild(skNode)
             let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
             plane.firstMaterial?.diffuse.contents = skScene
@@ -204,6 +203,7 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
             
             if GameService.isCorrect(quizNumber: self.quizNumber, userSelectedNumber: sender.tag){
                 self.correctVideoPlayer?.play()
+                print("正解動画再生開始")
                 self.playerLayerCorrect!.frame = self.explanationVideoView.bounds
                 self.playerLayerCorrect!.videoGravity = .resizeAspectFill
                 self.playerLayerCorrect!.zPosition = -1 // ボタン等よりも後ろに表示
@@ -212,6 +212,7 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
                 NotificationCenter.default.addObserver(self, selector: #selector(self.didPlayToEndTimeCorrect), name: .AVPlayerItemDidPlayToEndTime, object: self.correctVideoPlayer?.currentItem)
             } else {
                 self.incorrectVideoPlayer?.play()
+                print("不正解動画再生開始")
                 self.playerLayerIncorrect!.frame = self.explanationVideoView.bounds
                 self.playerLayerIncorrect!.videoGravity = .resizeAspectFill
                 self.playerLayerIncorrect!.zPosition = -1 // ボタン等よりも後ろに表示
@@ -249,11 +250,13 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
             nextView.quizNumber = self.quizNumber + 1
             navigationController?.pushViewController(nextView, animated: true)
         }else{
+            print("結果発表へ")
             self.performSegue(withIdentifier: "toResult", sender: nil)
         }
     }
     
     private func freeMemory(){
+        print("メモリ解放")
         sceneView.removeFromSuperview()
         sceneView = nil
         findNewsImageView.removeFromSuperview()
