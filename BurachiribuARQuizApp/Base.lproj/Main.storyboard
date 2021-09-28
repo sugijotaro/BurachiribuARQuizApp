@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sN6-ht-VRx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sN6-ht-VRx">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -232,16 +232,16 @@
                     <navigationItem key="navigationItem" id="nTy-n8-wKO"/>
                     <connections>
                         <outlet property="backGroundImageView" destination="kRU-bG-1hz" id="e1e-2J-z3t"/>
-                        <outlet property="choiceButtons1" destination="UBB-6a-fIv" id="6nQ-Zy-6sW"/>
-                        <outlet property="choiceButtons2" destination="OET-IT-wpl" id="iiB-5B-zq6"/>
-                        <outlet property="choiceButtons3" destination="Scr-tU-Sva" id="TfF-tI-fdi"/>
-                        <outlet property="choiceButtons4" destination="iBL-YX-jdw" id="wZn-fJ-OhO"/>
-                        <outlet property="findnews" destination="Geg-vO-1bW" id="ySp-gK-mhz"/>
-                        <outlet property="newsUI" destination="8eX-Qd-r8y" id="1xY-Wg-1Qc"/>
+                        <outlet property="findNewsImageView" destination="Geg-vO-1bW" id="ySp-gK-mhz"/>
+                        <outlet property="newsUIImageView" destination="8eX-Qd-r8y" id="1xY-Wg-1Qc"/>
                         <outlet property="quizView" destination="uBb-FQ-PmP" id="GZV-aR-x7H"/>
                         <outlet property="sceneView" destination="vvv-lZ-tYF" id="3cW-Bf-C15"/>
-                        <outlet property="seigo" destination="Kbn-1G-uOC" id="LcU-mM-lTj"/>
                         <outlet property="seigoView" destination="Pdy-I7-xpb" id="3nE-tP-M2j"/>
+                        <outlet property="symbolDisplayImageView" destination="Kbn-1G-uOC" id="LcU-mM-lTj"/>
+                        <outletCollection property="choiceButtons" destination="UBB-6a-fIv" collectionClass="NSMutableArray" id="SPP-UJ-DK0"/>
+                        <outletCollection property="choiceButtons" destination="OET-IT-wpl" collectionClass="NSMutableArray" id="ape-Le-NpJ"/>
+                        <outletCollection property="choiceButtons" destination="Scr-tU-Sva" collectionClass="NSMutableArray" id="guS-yA-TcS"/>
+                        <outletCollection property="choiceButtons" destination="iBL-YX-jdw" collectionClass="NSMutableArray" id="PYx-BO-Pi8"/>
                         <segue destination="TzH-NH-HeZ" kind="show" identifier="toResult" id="gnl-UZ-y9D"/>
                     </connections>
                 </viewController>
@@ -507,12 +507,12 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="HO3-wV-roU"/>
-                                <exclude reference="P8R-ze-gto"/>
-                                <exclude reference="tKQ-Hz-XkK"/>
                                 <exclude reference="A1c-1O-faq"/>
                                 <exclude reference="QgC-EB-aRY"/>
                                 <exclude reference="jkE-Xo-UA3"/>
+                                <exclude reference="HO3-wV-roU"/>
+                                <exclude reference="P8R-ze-gto"/>
+                                <exclude reference="tKQ-Hz-XkK"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -520,16 +520,16 @@
                                 <include reference="j20-XL-HvS"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="tKQ-Hz-XkK"/>
                                 <include reference="jkE-Xo-UA3"/>
+                                <include reference="tKQ-Hz-XkK"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
-                                <exclude reference="HO3-wV-roU"/>
-                                <include reference="P8R-ze-gto"/>
                                 <include reference="A1c-1O-faq"/>
                                 <exclude reference="QgC-EB-aRY"/>
+                                <exclude reference="HO3-wV-roU"/>
+                                <include reference="P8R-ze-gto"/>
                             </mask>
                         </variation>
                     </view>

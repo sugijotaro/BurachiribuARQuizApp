@@ -11,28 +11,22 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
     var referenceImages: Set<ARReferenceImage>?
     
     var uiVideoPlayer: AVPlayer?
-    
     var avPlayer: AVPlayer?
-    
     var correctVideoPlayer: AVPlayer?
     var incorrectVideoPlayer: AVPlayer?
     
-    //選択肢のボタン
-    @IBOutlet var choiceButtons1: UIButton!
-    @IBOutlet var choiceButtons2: UIButton!
-    @IBOutlet var choiceButtons3: UIButton!
-    @IBOutlet var choiceButtons4: UIButton!
+    @IBOutlet var choiceButtons: [UIButton] = []
     
-    @IBOutlet var seigo :UIImageView!
+    @IBOutlet var symbolDisplayImageView :UIImageView!
     
     @IBOutlet var quizView :UIView!
     @IBOutlet var seigoView :UIView!
     @IBOutlet var backGroundImageView: UIImageView!
     
-    @IBOutlet var findnews: UIImageView!
-    @IBOutlet var newsUI: UIImageView!
+    @IBOutlet var findNewsImageView: UIImageView!
+    @IBOutlet var newsUIImageView: UIImageView!
     
-    var playerCondition: Int = 0 //まだ再生してない＝0　再生が終わった＝1
+    var isPlayerFinishedWatchQuizVideo: Bool = false
     
     var quizNumber: Int = 1
     
@@ -58,36 +52,24 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
             print("quizNumber:\(quizNumber)")
             referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-\(quizNumber)", bundle: Bundle.main)
             self.navigationItem.title = "部長とクイズバトルQ\(quizNumber)"
-            newsUI.image = UIImage(named: "news\(quizNumber+1)UI.png")
-            findnews.image = UIImage(named: "findnews\(quizNumber+1).png")
+            newsUIImageView.image = UIImage(named: "news\(quizNumber+1)UI.png")
+            findNewsImageView.image = UIImage(named: "findnews\(quizNumber+1).png")
             uiVideoPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news\(quizNumber+1)UI", ofType: "mp4")!))
         }
         
-        choiceButtons1.clipsToBounds = true
-        choiceButtons2.clipsToBounds = true
-        choiceButtons3.clipsToBounds = true
-        choiceButtons4.clipsToBounds = true
+        for choiceButton in choiceButtons{
+            choiceButton.clipsToBounds = true
+            choiceButton.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 1, green: 1, blue: 1, alpha: 0)), for: .normal)
+            choiceButton.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 226/255, green: 225_255, blue: 232/255, alpha: 0.7)), for: .highlighted)
+            choiceButton.isHidden = true
+        }
         
-        choiceButtons1.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 1, green: 1, blue: 1, alpha: 0)), for: .normal)
-        choiceButtons2.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 1, green: 1, blue: 1, alpha: 0)), for: .normal)
-        choiceButtons3.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 1, green: 1, blue: 1, alpha: 0)), for: .normal)
-        choiceButtons4.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 1, green: 1, blue: 1, alpha: 0)), for: .normal)
-        
-        choiceButtons1.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 226/255, green: 225_255, blue: 232/255, alpha: 0.7)), for: .highlighted)
-        choiceButtons2.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 226/255, green: 225_255, blue: 232/255, alpha: 0.7)), for: .highlighted)
-        choiceButtons3.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 226/255, green: 225_255, blue: 232/255, alpha: 0.7)), for: .highlighted)
-        choiceButtons4.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 226/255, green: 225_255, blue: 232/255, alpha: 0.7)), for: .highlighted)
-        
-        choiceButtons1.isHidden = true  //ボタン非表示
-        choiceButtons2.isHidden = true
-        choiceButtons3.isHidden = true
-        choiceButtons4.isHidden = true
-        seigo.isHidden = true   //非表示
+        symbolDisplayImageView.isHidden = true   //非表示
         quizView.isHidden = true    //非表示
         backGroundImageView.alpha = 0    //非表示
         seigoView.isHidden = true    //非表示
-        newsUI.isHidden = true //非表示
-        findnews.isHidden = false  //表示
+        newsUIImageView.isHidden = true //非表示
+        findNewsImageView.isHidden = false  //表示
         
         self.navigationItem.hidesBackButton = true
         
@@ -143,6 +125,10 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        for choiceButton in choiceButtons{
+            choiceButton.layer.cornerRadius = choiceButtons[0].bounds.height * 0.55
+        }
+        
         if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == AVAuthorizationStatus.denied {
             let title: String = "カメラにアクセスできません"
             let message: String = "設定アプリでこのアプリのカメラへのアクセスを許可してください"
@@ -165,7 +151,7 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.run(configuration)
         
         UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse], animations: {
-            self.findnews.alpha = 0    //繰り返し表示
+            self.findNewsImageView.alpha = 0    //繰り返し表示
         }, completion: nil)
     }
     
@@ -185,7 +171,7 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
             avPlayer = AVPlayer(url: Bundle.main.url(forResource: "news\(quizNumber+1)", withExtension: "mp4")!)
         }
         let node = SCNNode()
-        if let imageAnchor = anchor as? ARImageAnchor , playerCondition == 0{
+        if let imageAnchor = anchor as? ARImageAnchor , !isPlayerFinishedWatchQuizVideo{
             // SKSceneを生成する
             let skScene = SKScene(size: CGSize(width: CGFloat(1000), height: CGFloat(1000)))
             NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: avPlayer?.currentItem)
@@ -214,7 +200,7 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
             playerLayer!.zPosition = -1 // ボタン等よりも後ろに表示
             quizView.layer.insertSublayer(playerLayer!, at: 0) // 動画をレイヤーとして追加
             
-            findnews.isHidden = true //非表示
+            findNewsImageView.isHidden = true //非表示
             backGroundImageView.alpha = 1    //表示
             quizView.isHidden = false //表示
             quizView.bringSubviewToFront(backGroundImageView)  //重ね順
@@ -236,25 +222,24 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
             incorrectVideoPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news\(quizNumber+1)incorrect", ofType: "mp4")!))
         }
         if sender.tag == correctNumber[quizNumber] {    //正解
-            seigo.isHidden = false  //表示
+            symbolDisplayImageView.isHidden = false  //表示
             autoreleasepool {
-                seigo.image = UIImage(named: "true.png")
+                symbolDisplayImageView.image = UIImage(named: "true.png")
             }
             audioPlayerInstanceCorrect.play()
             print("Q\(quizNumber)正解")
-            choiceButtons1.isHidden = true //ボタン非表示
-            choiceButtons2.isHidden = true
-            choiceButtons3.isHidden = true
-            choiceButtons4.isHidden = true
+            for choiceButton in choiceButtons{
+                choiceButton.isHidden = true
+            }
             FirebaseEventsService.quizSelect(isCorrect: true, quizNumber: quizNumber, selectedNumber: sender.tag)
             score = userDefaults?.array(forKey: "scoreData") as! [Int]
             score += [0]
             print(score)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.seigo.isHidden = true  //時間差で非表示にする
+                self.symbolDisplayImageView.isHidden = true  //時間差で非表示にする
                 self.seigoView.isHidden = false    //表示
-                self.newsUI.isHidden = false
+                self.newsUIImageView.isHidden = false
                 
                 self.correctVideoPlayer?.play()
                 self.playerLayerCorrect!.frame = self.seigoView.bounds
@@ -266,25 +251,24 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
                 
             }
         } else {    //不正解
-            seigo.isHidden = false  //表示
+            symbolDisplayImageView.isHidden = false  //表示
             autoreleasepool {
-                seigo.image = UIImage(named: "false.png")
+                symbolDisplayImageView.image = UIImage(named: "false.png")
             }
             audioPlayerInstanceIncorrect.play()
             print("Q\(quizNumber)不正解")
-            choiceButtons1.isHidden = true //ボタン非表示
-            choiceButtons2.isHidden = true
-            choiceButtons3.isHidden = true
-            choiceButtons4.isHidden = true
+            for choiceButton in choiceButtons{
+                choiceButton.isHidden = true
+            }
             FirebaseEventsService.quizSelect(isCorrect: false, quizNumber: quizNumber, selectedNumber: sender.tag)
             score = userDefaults?.array(forKey: "scoreData") as! [Int]
             score += [1]
             print(score)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.seigo.isHidden = true  //時間差で非表示にする
+                self.symbolDisplayImageView.isHidden = true  //時間差で非表示にする
                 self.seigoView.isHidden = false    //表示
-                self.newsUI.isHidden = false
+                self.newsUIImageView.isHidden = false
                 
                 self.incorrectVideoPlayer!.play()
                 self.playerLayerIncorrect!.frame = self.seigoView.bounds
@@ -301,20 +285,13 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
     
     @objc func didPlayToEndTime() {
         // news2.mp4の再生が終了したら呼ばれる
-        if playerCondition == 0{
+        if !isPlayerFinishedWatchQuizVideo{
             print("Q\(quizNumber)再生終了")
-            print(choiceButtons1.bounds.height)
             
-            choiceButtons1.layer.cornerRadius = choiceButtons1.bounds.height * 0.55
-            choiceButtons2.layer.cornerRadius = choiceButtons1.bounds.height * 0.55
-            choiceButtons3.layer.cornerRadius = choiceButtons1.bounds.height * 0.55
-            choiceButtons4.layer.cornerRadius = choiceButtons1.bounds.height * 0.55
-            
-            choiceButtons1.isHidden = false //ボタン表示
-            choiceButtons2.isHidden = false
-            choiceButtons3.isHidden = false
-            choiceButtons4.isHidden = false
-            playerCondition = 1
+            for choiceButton in choiceButtons{
+                choiceButton.isHidden = false
+            }
+            isPlayerFinishedWatchQuizVideo = true
         }
         
     }
@@ -328,9 +305,9 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func resultMovieFinished(){
-        seigo.image = nil
-        findnews.image = nil
-        newsUI.image = nil
+        symbolDisplayImageView.image = nil
+        findNewsImageView.image = nil
+        newsUIImageView.image = nil
         avPlayer = nil
         sceneView.removeFromSuperview()
         sceneView = nil
