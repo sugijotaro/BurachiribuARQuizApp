@@ -7,8 +7,11 @@ import AVFoundation
 class TutorialViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
+    let imageConfiguration = ARImageTrackingConfiguration()
+    let imageConfiguration1 = ARImageTrackingConfiguration()
+    
+    @IBOutlet var slideView: UIView!
     @IBOutlet var slideImageView: UIImageView!
-    @IBOutlet var slideViewView: UIView!
     
     @IBOutlet var actionButon: UIBarButtonItem!
     
@@ -17,16 +20,13 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
     
     var avPlayer: AVPlayer?
     
-    let imageConfiguration = ARImageTrackingConfiguration()
-    let imageConfiguration1 = ARImageTrackingConfiguration()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         sceneView.delegate = self
         
         slideImageView.isHidden = false
-        slideViewView.isHidden = false
+        slideView.isHidden = false
         slideImageView.image = UIImage(named: "slide1")
         
         self.navigationItem.title = "チュートリアル"
@@ -34,7 +34,6 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         avPlayer = AVPlayer(url: Bundle.main.url(forResource: "tutorial", withExtension: "mp4")!)
         
         imageConfiguration.trackingImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources-tutorial", bundle: nil)!
-        imageConfiguration.maximumNumberOfTrackedImages = 3
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +47,10 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         
         sceneView?.session.pause()
     }
+    
+    
+    override var prefersHomeIndicatorAutoHidden: Bool { true }
+    
     
     @IBAction func menuButton () {
         let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
@@ -81,9 +84,6 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    override var prefersHomeIndicatorAutoHidden: Bool { true }
-    
     
     @IBAction func leftswipe(){
         if slideCount == 2{
@@ -125,19 +125,19 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         switch slideCount {
         case 1:
             slideImageView.isHidden = false
-            slideViewView.isHidden = false
+            slideView.isHidden = false
             autoreleasepool {
                 slideImageView.image = UIImage(named: "slide1")
             }
         case 2:
             slideImageView.isHidden = false
-            slideViewView.isHidden = false
+            slideView.isHidden = false
             autoreleasepool {
                 slideImageView.image = UIImage(named: "slide2")
             }
         case 3:
             slideImageView.isHidden = true
-            slideViewView.isHidden = true
+            slideView.isHidden = true
         default: break
         }
         
@@ -163,16 +163,14 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
         if let imageAnchor = anchor as? ARImageAnchor {
-            // SKSceneを生成する
             let skScene = SKScene(size: CGSize(width: CGFloat(1000), height: CGFloat(1000)))
             
             NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: avPlayer?.currentItem)
             
-            // AVPlayerからSKVideoNodeの生成する（サイズはskSceneと同じ大きさ）
             let skNode = SKVideoNode(avPlayer: avPlayer!)
             skNode.position = CGPoint(x: skScene.size.width / 2.0, y: skScene.size.height / 2.0)
             skNode.size = skScene.size
-            skNode.yScale = -1.0 // 座標系を上下逆にする
+            skNode.yScale = -1.0
             skNode.play()
             skScene.addChild(skNode)
             let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)

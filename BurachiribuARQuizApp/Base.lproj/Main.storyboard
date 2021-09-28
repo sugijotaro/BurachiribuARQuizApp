@@ -75,7 +75,7 @@
                         <outlet property="actionButon" destination="Cic-uz-l5F" id="10J-UW-jwt"/>
                         <outlet property="sceneView" destination="gCo-QA-pCh" id="Faa-Oi-650"/>
                         <outlet property="slideImageView" destination="pzj-Da-DNx" id="k4t-Ub-dGQ"/>
-                        <outlet property="slideViewView" destination="7CC-6G-yuq" id="kL8-kZ-fsx"/>
+                        <outlet property="slideView" destination="7CC-6G-yuq" id="kL8-kZ-fsx"/>
                         <segue destination="AD7-zb-4XL" kind="show" identifier="toQuizView" id="Aal-wm-lVk"/>
                         <segue destination="TzH-NH-HeZ" kind="show" identifier="toResult" id="I3w-1n-HHE"/>
                     </connections>
@@ -552,7 +552,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="gnl-UZ-y9D"/>
+        <segue reference="I3w-1n-HHE"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="ED" width="1516" height="2150"/>
