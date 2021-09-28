@@ -9,33 +9,29 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     let imageConfiguration = ARImageTrackingConfiguration()
     
-    @IBOutlet var quizView :UIView!
-    @IBOutlet var seigoView :UIView!
-    @IBOutlet var backGroundImageView: UIImageView!
-    @IBOutlet var symbolDisplayImageView :UIImageView!
     @IBOutlet var findNewsImageView: UIImageView!
-    @IBOutlet var newsUIImageView: UIImageView!
+    @IBOutlet var symbolDisplayImageView :UIImageView!
+    @IBOutlet var explanationVideoView :UIView!
     
-    var uiVideoPlayer: AVPlayer?
-    var avPlayer: AVPlayer?
-    var correctVideoPlayer: AVPlayer?
-    var incorrectVideoPlayer: AVPlayer?
+    @IBOutlet var quizView :UIView!
+    @IBOutlet var newsUIImageView: UIImageView!
+    @IBOutlet var quizBackGroundImageView: UIImageView!
     
     @IBOutlet var choiceButtons: [UIButton] = []
     
+    private var uiVideoPlayer: AVPlayer?
+    private var avPlayer: AVPlayer?
+    private  var correctVideoPlayer: AVPlayer?
+    private  var incorrectVideoPlayer: AVPlayer?
     
-    
-    var isPlayerFinishedWatchQuizVideo: Bool = false
+    private  var isPlayerFinishedWatchQuizVideo: Bool = false
     
     var quizNumber: Int = 1
     
-    var audioPlayerInstanceCorrect : AVAudioPlayer! = nil  // 再生するサウンドのインスタンス
-    var audioPlayerInstanceIncorrect : AVAudioPlayer! = nil  // 再生するサウンドのインスタンス
+    private var audioPlayerInstanceCorrect : AVAudioPlayer! = nil  // 再生するサウンドのインスタンス
+    private var audioPlayerInstanceIncorrect : AVAudioPlayer! = nil  // 再生するサウンドのインスタンス
     
     var score: [Int] = [1]   //0=正解 1=不正解
-    var correctNumber: [Int] = [0,3,2,3,1,3,4,2,4,2,3] 
-    var userDefaults = UserDefaults(suiteName: "group.com.burachiribu")
-    
     
     
     lazy var playerLayer: AVPlayerLayer? = AVPlayerLayer(player: uiVideoPlayer)
@@ -70,8 +66,8 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
         
         symbolDisplayImageView.isHidden = true
         quizView.isHidden = true
-        backGroundImageView.alpha = 0
-        seigoView.isHidden = true
+        quizBackGroundImageView.alpha = 0
+        explanationVideoView.isHidden = true
         newsUIImageView.isHidden = true
         findNewsImageView.isHidden = false
         self.navigationItem.hidesBackButton = true
@@ -174,9 +170,9 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
             quizView.layer.insertSublayer(playerLayer!, at: 0)
             
             findNewsImageView.isHidden = true
-            backGroundImageView.alpha = 1
+            quizBackGroundImageView.alpha = 1
             quizView.isHidden = false
-            quizView.bringSubviewToFront(backGroundImageView)
+            quizView.bringSubviewToFront(quizBackGroundImageView)
         }
         return node
     }
@@ -206,23 +202,23 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {   //1秒後の処理
             self.symbolDisplayImageView.isHidden = true
-            self.seigoView.isHidden = false
+            self.explanationVideoView.isHidden = false
             self.newsUIImageView.isHidden = false
             
             if GameService.isCorrect(quizNumber: self.quizNumber, userSelectedNumber: sender.tag){
                 self.correctVideoPlayer?.play()
-                self.playerLayerCorrect!.frame = self.seigoView.bounds
+                self.playerLayerCorrect!.frame = self.explanationVideoView.bounds
                 self.playerLayerCorrect!.videoGravity = .resizeAspectFill
                 self.playerLayerCorrect!.zPosition = -1 // ボタン等よりも後ろに表示
-                self.seigoView.layer.insertSublayer(self.playerLayerCorrect!, at: 0)
+                self.explanationVideoView.layer.insertSublayer(self.playerLayerCorrect!, at: 0)
                 
                 NotificationCenter.default.addObserver(self, selector: #selector(self.didPlayToEndTimeCorrect), name: .AVPlayerItemDidPlayToEndTime, object: self.correctVideoPlayer?.currentItem)
             } else {
                 self.incorrectVideoPlayer?.play()
-                self.playerLayerIncorrect!.frame = self.seigoView.bounds
+                self.playerLayerIncorrect!.frame = self.explanationVideoView.bounds
                 self.playerLayerIncorrect!.videoGravity = .resizeAspectFill
                 self.playerLayerIncorrect!.zPosition = -1 // ボタン等よりも後ろに表示
-                self.seigoView.layer.insertSublayer(self.playerLayerIncorrect!, at: 0)
+                self.explanationVideoView.layer.insertSublayer(self.playerLayerIncorrect!, at: 0)
                 
                 NotificationCenter.default.addObserver(self, selector: #selector(self.didPlayToEndTimeIncorrect), name: .AVPlayerItemDidPlayToEndTime, object: self.incorrectVideoPlayer?.currentItem)
             }
