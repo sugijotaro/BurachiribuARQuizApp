@@ -210,12 +210,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="nTy-n8-wKO"/>
                     <connections>
-                        <outlet property="backGroundImageView" destination="kRU-bG-1hz" id="e1e-2J-z3t"/>
+                        <outlet property="explanationVideoView" destination="Pdy-I7-xpb" id="3nE-tP-M2j"/>
                         <outlet property="findNewsImageView" destination="Geg-vO-1bW" id="ySp-gK-mhz"/>
                         <outlet property="newsUIImageView" destination="8eX-Qd-r8y" id="1xY-Wg-1Qc"/>
+                        <outlet property="quizBackGroundImageView" destination="kRU-bG-1hz" id="e1e-2J-z3t"/>
                         <outlet property="quizView" destination="uBb-FQ-PmP" id="GZV-aR-x7H"/>
                         <outlet property="sceneView" destination="vvv-lZ-tYF" id="3cW-Bf-C15"/>
-                        <outlet property="seigoView" destination="Pdy-I7-xpb" id="3nE-tP-M2j"/>
                         <outlet property="symbolDisplayImageView" destination="Kbn-1G-uOC" id="LcU-mM-lTj"/>
                         <outletCollection property="choiceButtons" destination="UBB-6a-fIv" collectionClass="NSMutableArray" id="SPP-UJ-DK0"/>
                         <outletCollection property="choiceButtons" destination="OET-IT-wpl" collectionClass="NSMutableArray" id="ape-Le-NpJ"/>
@@ -531,7 +531,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="I3w-1n-HHE"/>
+        <segue reference="gnl-UZ-y9D"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="ED" width="1516" height="2150"/>

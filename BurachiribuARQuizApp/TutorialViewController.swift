@@ -14,7 +14,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate, UIGestureReco
     
     @IBOutlet var slideImageView: UIImageView!
     
-    var avPlayer: AVPlayer?
+    private var avPlayer: AVPlayer?
     
     private var slideCount: Int = 1
     
