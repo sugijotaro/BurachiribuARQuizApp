@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A04D8D626F868E80063F62E /* FirebaseEventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04D8D526F868E80063F62E /* FirebaseEventsService.swift */; };
 		0A17037622D9A8A0003EEE69 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A17037522D9A8A0003EEE69 /* QuizViewController.swift */; };
+		0A2E80C12703071D0097C240 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2E80C02703071D0097C240 /* GameService.swift */; };
 		0A3B1A1B22B4C77800704A10 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3B1A1A22B4C77800704A10 /* TutorialViewController.swift */; };
 		0A799D202626E7A500B78C6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A799D1F2626E7A500B78C6F /* GoogleService-Info.plist */; };
 		0A799D212626E7A500B78C6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A799D1F2626E7A500B78C6F /* GoogleService-Info.plist */; };
@@ -113,6 +114,7 @@
 		08579D934EDE2591371EF425 /* Pods-BurachiribuARQuizApp-BurachiribuARQuizAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BurachiribuARQuizApp-BurachiribuARQuizAppUITests.release.xcconfig"; path = "Target Support Files/Pods-BurachiribuARQuizApp-BurachiribuARQuizAppUITests/Pods-BurachiribuARQuizApp-BurachiribuARQuizAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		0A04D8D526F868E80063F62E /* FirebaseEventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEventsService.swift; sourceTree = "<group>"; };
 		0A17037522D9A8A0003EEE69 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
+		0A2E80C02703071D0097C240 /* GameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
 		0A3B1A1A22B4C77800704A10 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		0A799D1F2626E7A500B78C6F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0AAA3E6622C74DF90044326B /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				0AE6A35F22AFA42600011DCB /* Main.storyboard */,
 				0ADBC2D722C74654007437B5 /* CustomClass.swift */,
 				0A04D8D526F868E80063F62E /* FirebaseEventsService.swift */,
+				0A2E80C02703071D0097C240 /* GameService.swift */,
 				0AE6A36222AFA42700011DCB /* Assets.xcassets */,
 				0ADA9B742541E7760085F6CC /* Assets */,
 				0AE6A36422AFA42700011DCB /* LaunchScreen.storyboard */,
@@ -812,6 +815,7 @@
 				0ADBC2D822C74654007437B5 /* CustomClass.swift in Sources */,
 				0A04D8D626F868E80063F62E /* FirebaseEventsService.swift in Sources */,
 				0A3B1A1B22B4C77800704A10 /* TutorialViewController.swift in Sources */,
+				0A2E80C12703071D0097C240 /* GameService.swift in Sources */,
 				0AE6A35A22AFA42600011DCB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

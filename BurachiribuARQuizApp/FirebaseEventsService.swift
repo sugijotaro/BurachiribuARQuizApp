@@ -1,10 +1,3 @@
-//
-//  FirebaseEventsService.swift
-//  BurachiribuARQuizApp
-//
-//  Created by JotaroSugiyama on 2021/09/20.
-//  Copyright © 2021 JotaroSugiyama. All rights reserved.
-//
 
 import Firebase
 
