@@ -76,6 +76,16 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
         findNewsImageView.isHidden = false
         self.navigationItem.hidesBackButton = true
         
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .white
+            navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        } else {
+            navigationController?.navigationBar.barTintColor = .white
+        }
+        
         let soundFilePathCorrect = Bundle.main.path(forResource: "correct", ofType: "mp3")!
         let soundCorrect:URL = URL(fileURLWithPath: soundFilePathCorrect)
         do {
