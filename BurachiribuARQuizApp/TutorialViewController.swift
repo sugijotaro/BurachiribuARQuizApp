@@ -18,10 +18,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
     var avPlayer: AVPlayer?
     
     let imageConfiguration = ARImageTrackingConfiguration()
-    
     let imageConfiguration1 = ARImageTrackingConfiguration()
-    
-    var userDefaults = UserDefaults(suiteName: "group.com.burachiribu")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +27,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         
         slideImageView.isHidden = false
         slideViewView.isHidden = false
-        autoreleasepool {
-            slideImageView.image = UIImage(named: "slide1")
-        }
+        slideImageView.image = UIImage(named: "slide1")
         
         self.navigationItem.title = "チュートリアル"
         
@@ -54,19 +49,6 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         sceneView?.session.pause()
     }
     
-    override var prefersHomeIndicatorAutoHidden: Bool { true }
-    
-    @objc func didPlayToEndTime() {
-        print("動画再生終了")
-        avPlayer?.pause()
-        
-        FirebaseEventsService.tutorialComplete()
-        
-        self.dismiss(animated: true, completion: nil)
-        self.performSegue(withIdentifier: "toQuizView", sender: nil)
-        segue()
-    }
-    
     @IBAction func menuButton () {
         let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
         let toTutorial = UIAlertAction(title: "ARトラッキング素材をダウンロードする", style: .default) { _ in
@@ -78,6 +60,7 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         }
         alert.addAction(toTutorial)
         
+        //デバッグ用
 //        let skipTutorial = UIAlertAction(title: "チュートリアルスキップ", style: .default, handler: { _ in
 //            self.performSegue(withIdentifier: "toQuizView", sender: nil)
 //        })
@@ -93,39 +76,14 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
             alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel) { (action: UIAlertAction) in
             })
         }
-        
         alert.popoverPresentationController?.sourceView = view
         alert.popoverPresentationController?.barButtonItem = actionButon
+        
         self.present(alert, animated: true, completion: nil)
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-        if let imageAnchor = anchor as? ARImageAnchor {
-            // SKSceneを生成する
-            let skScene = SKScene(size: CGSize(width: CGFloat(1000), height: CGFloat(1000)))
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: avPlayer?.currentItem)
-            
-            // AVPlayerからSKVideoNodeの生成する（サイズはskSceneと同じ大きさ）
-            let skNode = SKVideoNode(avPlayer: avPlayer!)
-            skNode.position = CGPoint(x: skScene.size.width / 2.0, y: skScene.size.height / 2.0)
-            skNode.size = skScene.size
-            skNode.yScale = -1.0 // 座標系を上下逆にする
-            skNode.play()
-            skScene.addChild(skNode)
-            let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
-            plane.firstMaterial?.diffuse.contents = skScene
-            let planeNode = SCNNode(geometry: plane)
-            planeNode.eulerAngles.x = -.pi / 2
-            node.addChildNode(planeNode)
-            
-            slideCount = 4
-            
-            FirebaseEventsService.tutorialBegin()
-        }
-        return node
-    }
+    override var prefersHomeIndicatorAutoHidden: Bool { true }
+    
     
     @IBAction func leftswipe(){
         if slideCount == 2{
@@ -200,6 +158,47 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate {
         
         print(slideCount)
     }
+    
+    
+    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+        let node = SCNNode()
+        if let imageAnchor = anchor as? ARImageAnchor {
+            // SKSceneを生成する
+            let skScene = SKScene(size: CGSize(width: CGFloat(1000), height: CGFloat(1000)))
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: avPlayer?.currentItem)
+            
+            // AVPlayerからSKVideoNodeの生成する（サイズはskSceneと同じ大きさ）
+            let skNode = SKVideoNode(avPlayer: avPlayer!)
+            skNode.position = CGPoint(x: skScene.size.width / 2.0, y: skScene.size.height / 2.0)
+            skNode.size = skScene.size
+            skNode.yScale = -1.0 // 座標系を上下逆にする
+            skNode.play()
+            skScene.addChild(skNode)
+            let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
+            plane.firstMaterial?.diffuse.contents = skScene
+            let planeNode = SCNNode(geometry: plane)
+            planeNode.eulerAngles.x = -.pi / 2
+            node.addChildNode(planeNode)
+            
+            slideCount = 4
+            
+            FirebaseEventsService.tutorialBegin()
+        }
+        return node
+    }
+    
+    @objc func didPlayToEndTime() {
+        print("動画再生終了")
+        avPlayer?.pause()
+        
+        FirebaseEventsService.tutorialComplete()
+        
+        self.dismiss(animated: true, completion: nil)
+        self.performSegue(withIdentifier: "toQuizView", sender: nil)
+        segue()
+    }
+    
     
     func segue(){
         slideImageView.image = nil
