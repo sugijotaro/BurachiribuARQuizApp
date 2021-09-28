@@ -273,7 +273,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaQ-oD-uvD">
                                 <rect key="frame" x="99" y="679.5" width="216" height="29"/>
                                 <connections>
-                                    <action selector="showResultED" destination="TzH-NH-HeZ" eventType="touchUpInside" id="tVj-ub-BMq"/>
+                                    <action selector="showResultButtonTapped" destination="TzH-NH-HeZ" eventType="touchUpInside" id="tVj-ub-BMq"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j20-XL-HvS" customClass="CustomView" customModule="BurachiribuARQuizApp" customModuleProvider="target">
@@ -447,25 +447,15 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbb-zb-Q6G">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <connections>
-                                    <action selector="touched" destination="TzH-NH-HeZ" eventType="touchUpInside" id="3Dc-al-Oc6"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="V59-YU-24h"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cbb-zb-Q6G" firstAttribute="bottom" secondItem="2dg-KG-nN4" secondAttribute="bottom" id="1Kf-2N-0xZ"/>
                             <constraint firstAttribute="bottom" secondItem="bqm-5U-E1q" secondAttribute="bottom" priority="750" id="28J-B4-Tcm"/>
-                            <constraint firstItem="cbb-zb-Q6G" firstAttribute="leading" secondItem="V59-YU-24h" secondAttribute="leading" id="8a8-WT-SMq"/>
                             <constraint firstItem="j20-XL-HvS" firstAttribute="width" secondItem="2dg-KG-nN4" secondAttribute="width" multiplier="0.8" id="A1c-1O-faq"/>
-                            <constraint firstItem="cbb-zb-Q6G" firstAttribute="top" secondItem="2dg-KG-nN4" secondAttribute="top" id="BYj-tf-Hrx"/>
                             <constraint firstItem="j20-XL-HvS" firstAttribute="centerY" secondItem="2dg-KG-nN4" secondAttribute="centerY" id="C2A-pK-bbe"/>
                             <constraint firstItem="bqm-5U-E1q" firstAttribute="top" secondItem="2dg-KG-nN4" secondAttribute="top" priority="750" id="EhW-nF-hLK"/>
                             <constraint firstItem="0tP-di-vpO" firstAttribute="width" secondItem="2dg-KG-nN4" secondAttribute="width" multiplier="0.8" id="HO3-wV-roU"/>
-                            <constraint firstItem="cbb-zb-Q6G" firstAttribute="trailing" secondItem="V59-YU-24h" secondAttribute="trailing" id="Ik8-JP-PGc"/>
                             <constraint firstItem="0tP-di-vpO" firstAttribute="centerY" secondItem="2dg-KG-nN4" secondAttribute="centerY" priority="750" id="Il6-IW-l56"/>
                             <constraint firstAttribute="trailing" secondItem="d1S-GC-sTg" secondAttribute="trailing" priority="750" constant="12" id="MoI-8x-me3"/>
                             <constraint firstItem="0tP-di-vpO" firstAttribute="width" secondItem="2dg-KG-nN4" secondAttribute="width" multiplier="0.8" id="P8R-ze-gto"/>
@@ -516,13 +506,12 @@
                     <connections>
                         <outlet property="endingImage" destination="0tP-di-vpO" id="1ev-cv-rXR"/>
                         <outlet property="movieView" destination="d1S-GC-sTg" id="h44-F2-Fl5"/>
-                        <outlet property="name" destination="4xl-Sg-qSh" id="h2X-Io-ZlH"/>
+                        <outlet property="nameLabel" destination="4xl-Sg-qSh" id="h2X-Io-ZlH"/>
                         <outlet property="resultLabel" destination="Lrb-6N-Wvs" id="cuc-2k-bcp"/>
                         <outlet property="resultView" destination="j20-XL-HvS" id="VLU-eD-WEK"/>
                         <outlet property="sceneView" destination="bqm-5U-E1q" id="pbM-hh-gmx"/>
+                        <outlet property="scoreIntLabel" destination="N98-K0-6Xs" id="yBM-Vk-3ra"/>
                         <outlet property="showResultButton" destination="SaQ-oD-uvD" id="n9j-BJ-ZQr"/>
-                        <outlet property="sum" destination="N98-K0-6Xs" id="yBM-Vk-3ra"/>
-                        <outlet property="touchButton" destination="cbb-zb-Q6G" id="AlU-7s-C8w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ibG-xc-g4C" userLabel="First Responder" sceneMemberID="firstResponder"/>
