@@ -18,6 +18,11 @@
 #include <stdint.h>
 #include <sys/cdefs.h>
 
+// Required for 1P builds
+#include <stddef.h>
+#include <sys/types.h>
+#include <unistd.h>
+
 #if defined(__OBJC__)
 #import <Foundation/Foundation.h>
 #endif
@@ -73,6 +78,7 @@ void FIRCLSFileWriteHashKey(FIRCLSFile* file, const char* key);
 void FIRCLSFileWriteHashEntryUint64(FIRCLSFile* file, const char* key, uint64_t value);
 void FIRCLSFileWriteHashEntryInt64(FIRCLSFile* file, const char* key, int64_t value);
 void FIRCLSFileWriteHashEntryString(FIRCLSFile* file, const char* key, const char* value);
+void FIRCLSFileWriteStringUnquoted(FIRCLSFile* file, const char* string);
 #if defined(__OBJC__)
 void FIRCLSFileWriteHashEntryNSString(FIRCLSFile* file, const char* key, NSString* string);
 void FIRCLSFileWriteHashEntryNSStringUnlessNilOrEmpty(FIRCLSFile* file,
