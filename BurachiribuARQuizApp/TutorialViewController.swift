@@ -77,21 +77,21 @@ class TutorialViewController: UIViewController, ARSCNViewDelegate, UIGestureReco
         alert.addAction(toTutorial)
         
         //デバッグ用
-        let skipTutorial = UIAlertAction(title: "チュートリアルスキップ", style: .default, handler: { _ in
-            print("チュートリアルスキップ")
-            GameService.resetScore()
-            self.performSegue(withIdentifier: "toQuizView", sender: nil)
-            self.freeMemory()
-        })
-        alert.addAction(skipTutorial)
-
-        let toResult = UIAlertAction(title: "結果発表へ", style: .default, handler: { _ in
-            print("結果発表へ")
-            GameService.resetScore()
-            self.performSegue(withIdentifier: "toResult", sender: nil)
-            self.freeMemory()
-        })
-        alert.addAction(toResult)
+//        let skipTutorial = UIAlertAction(title: "チュートリアルスキップ", style: .default, handler: { _ in
+//            print("チュートリアルスキップ")
+//            GameService.resetScore()
+//            self.performSegue(withIdentifier: "toQuizView", sender: nil)
+//            self.freeMemory()
+//        })
+//        alert.addAction(skipTutorial)
+//
+//        let toResult = UIAlertAction(title: "結果発表へ", style: .default, handler: { _ in
+//            print("結果発表へ")
+//            GameService.resetScore()
+//            self.performSegue(withIdentifier: "toResult", sender: nil)
+//            self.freeMemory()
+//        })
+//        alert.addAction(toResult)
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel) { (action: UIAlertAction) in
