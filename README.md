@@ -9,6 +9,9 @@ NHK Eテレ「沼にハマってきいてみた」でも紹介された 新感�
 ## 紹介動画
 [![thumbnail](readme/thumbnail.jpg)](https://twitter.com/burachiribu/status/1172113185446350854/video/1)
 
+## その他情報
+- [部長とクイズバトル - Notion](https://psychedelic-enquiry-23f.notion.site/49ecbfb279ce4d7eaf0b519e9032c261)
+
 ## インストール
 [AppStore](https://apps.apple.com/jp/app/id1479295376) からインストールして遊んでみてね！
 
