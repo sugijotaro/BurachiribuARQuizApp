@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "えいえんのブラチリブ部員"; ObjectID = "4xl-Sg-qSh"; */
+"4xl-Sg-qSh.text" = "えいえんのブラチリブ部員";
+
+/* Class = "UILabel"; text = "ブラチリブNEWS第2号\nブラチリブNEWS第3号\nブラチリブNEWS第4号\nブラチリブNEWS第5号\nブラチリブNEWS第6号\nブラチリブNEWS第7号\nブラチリブNEWS第8号\nブラチリブNEWS第9号\nブラチリブNEWS第10号\nブラチリブNEWS第11号"; ObjectID = "CI3-Ve-FyF"; */
+"CI3-Ve-FyF.text" = "ブラチリブNEWS第2号\nブラチリブNEWS第3号\nブラチリブNEWS第4号\nブラチリブNEWS第5号\nブラチリブNEWS第6号\nブラチリブNEWS第7号\nブラチリブNEWS第8号\nブラチリブNEWS第9号\nブラチリブNEWS第10号\nブラチリブNEWS第11号";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "Cic-uz-l5F"; */
+"Cic-uz-l5F.title" = "Item";
+
+/* Class = "UILabel"; text = "-\n-\n-\n-\n-\n-\n-\n-\n-\n-"; ObjectID = "Lrb-6N-Wvs"; */
+"Lrb-6N-Wvs.text" = "-\n-\n-\n-\n-\n-\n-\n-\n-\n-";
+
+/* Class = "UILabel"; text = "0／10"; ObjectID = "N98-K0-6Xs"; */
+"N98-K0-6Xs.text" = "0／10";
+
+/* Class = "UILabel"; text = "結果発表"; ObjectID = "c11-2V-sAo"; */
+"c11-2V-sAo.text" = "結果発表";
+
+/* Class = "UILabel"; text = "スコア"; ObjectID = "d30-WV-ivd"; */
+"d30-WV-ivd.text" = "スコア";
+
+/* Class = "UILabel"; text = "称号"; ObjectID = "uvc-K2-g9P"; */
+"uvc-K2-g9P.text" = "称号";
