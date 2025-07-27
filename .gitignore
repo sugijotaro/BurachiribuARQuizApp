@@ -90,3 +90,5 @@ fastlane/test_output
 iOSInjectionProject/
 GoogleService-Info.plist
 .DS_Store
+BurachiribuARQuizApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+BurachiribuARQuizApp/GoogleService-Info.plist
