@@ -54,7 +54,7 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
         for choiceButton in choiceButtons{
             choiceButton.clipsToBounds = true
             choiceButton.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 1, green: 1, blue: 1, alpha: 0)), for: .normal)
-            choiceButton.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 226/255, green: 225_255, blue: 232/255, alpha: 0.7)), for: .highlighted)
+            choiceButton.setBackgroundImage(self.createImageFromUIColor(color: UIColor(red: 226/255, green: 225/255, blue: 232/255, alpha: 0.7)), for: .highlighted)
             choiceButton.isHidden = true
         }
         
@@ -134,42 +134,45 @@ class QuizViewController: UIViewController, ARSCNViewDelegate {
     
     override var prefersHomeIndicatorAutoHidden: Bool { true }
     
-    
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         quizVideoPlayer = AVPlayer(url: Bundle.main.url(forResource: "news\(quizNumber+1)", withExtension: "mp4")!)
         let node = SCNNode()
-        if let imageAnchor = anchor as? ARImageAnchor , !isPlayerFinishedWatchQuizVideo{
-            let skScene = SKScene(size: CGSize(width: CGFloat(1000), height: CGFloat(1000)))
-            NotificationCenter.default.addObserver(self, selector: #selector(didPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: quizVideoPlayer?.currentItem)
+        
+        if let imageAnchor = anchor as? ARImageAnchor , !isPlayerFinishedWatchQuizVideo {
             
-            let skNode = SKVideoNode(avPlayer: quizVideoPlayer!)
-            skNode.position = CGPoint(x: skScene.size.width / 2.0, y: skScene.size.height / 2.0)
-            skNode.size = skScene.size
-            skNode.yScale = -1.0
-            skNode.play()
-            print("Q\(quizNumber)再生開始")
-            skScene.addChild(skNode)
-            let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
-            plane.firstMaterial?.diffuse.contents = skScene
-            let planeNode = SCNNode(geometry: plane)
-            planeNode.eulerAngles.x = -.pi / 2
-            node.addChildNode(planeNode)
-            
-            uiVideoPlayer!.play()
-            
-            playerLayer!.frame = quizView.bounds
-            playerLayer!.videoGravity = .resizeAspectFill
-            playerLayer!.zPosition = -1
-            quizView.layer.insertSublayer(playerLayer!, at: 0)
-            
-            findNewsImageView.isHidden = true
-            quizBackGroundImageView.alpha = 1
-            quizView.isHidden = false
-            quizView.bringSubviewToFront(quizBackGroundImageView)
+            DispatchQueue.main.async {
+                let skScene = SKScene(size: CGSize(width: CGFloat(1000), height: CGFloat(1000)))
+                NotificationCenter.default.addObserver(self, selector: #selector(self.didPlayToEndTime), name: .AVPlayerItemDidPlayToEndTime, object: self.quizVideoPlayer?.currentItem)
+                
+                let skNode = SKVideoNode(avPlayer: self.quizVideoPlayer!)
+                skNode.position = CGPoint(x: skScene.size.width / 2.0, y: skScene.size.height / 2.0)
+                skNode.size = skScene.size
+                skNode.yScale = -1.0
+                skNode.play()
+                print("Q\(self.quizNumber)再生開始")
+                skScene.addChild(skNode)
+                
+                let plane = SCNPlane(width: imageAnchor.referenceImage.physicalSize.width, height: imageAnchor.referenceImage.physicalSize.height)
+                plane.firstMaterial?.diffuse.contents = skScene
+                let planeNode = SCNNode(geometry: plane)
+                planeNode.eulerAngles.x = -.pi / 2
+                node.addChildNode(planeNode)
+                
+                self.uiVideoPlayer!.play()
+                
+                self.playerLayer!.frame = self.quizView.bounds
+                self.playerLayer!.videoGravity = .resizeAspectFill
+                self.playerLayer!.zPosition = -1
+                self.quizView.layer.insertSublayer(self.playerLayer!, at: 0)
+                
+                self.findNewsImageView.isHidden = true
+                self.quizBackGroundImageView.alpha = 1
+                self.quizView.isHidden = false
+                self.quizView.bringSubviewToFront(self.quizBackGroundImageView)
+            }
         }
         return node
     }
-    
     
     @IBAction func tappedChoiceButton(sender: UIButton) {
         correctVideoPlayer = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "news\(quizNumber+1)correct", ofType: "mp4")!))
